@@ -8,8 +8,6 @@
 #define ANNA_SNAKE
 
 
-enum class ArrowKey {left, right, up, down};
-
 class Snake
 {
 private:
@@ -25,7 +23,7 @@ public:
     ~Snake();
     
     void draw() const;
-    void newCoordinates (ArrowKey key);
+    void newCoordinates (int arrowKey);
     
 };
 

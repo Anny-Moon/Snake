@@ -11,7 +11,6 @@
 void Gameplay::gameLoop(Snake* snake, int ch)
 {
     //char ch;
-    ArrowKey key;
     
     if(ch == 'q' || ch == 'Q')
 	return;
@@ -23,25 +22,16 @@ void Gameplay::gameLoop(Snake* snake, int ch)
     for(;;){
 	ch = getch();
 
-	if(ch == KEY_LEFT)
-	    key = ArrowKey::left;
-	
-	else if (ch == KEY_RIGHT)
-	    key = ArrowKey::right;
-	
-	else if (ch == KEY_UP)
-	    key = ArrowKey::up;
-	    
-	else if (ch == KEY_DOWN)
-	    key = ArrowKey::down;
+	if(ch == KEY_LEFT || ch == KEY_RIGHT || ch == KEY_UP || ch == KEY_DOWN){
+	    snake->newCoordinates(ch);
+	    erase();
+	    snake->draw();
+	    refresh();
+	}
 	
 	else if(ch == 'q' || ch == 'Q')
 	    break;
-	else;
-	snake->newCoordinates(key);
-	erase();
-	snake->draw();
-	refresh();
+	
     }
     
 }

@@ -4,7 +4,6 @@
 
 int main()
 {
-    int i;
     initscr();
     clear();
     noecho();

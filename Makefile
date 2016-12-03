@@ -68,8 +68,8 @@ define app_compile_template
  $(1)_OBJ_PURE = $$(notdir $$($(1)_OBJ))
 
 $$($(1)_OBJ): $(1)
-#	@echo "Compiling: " $$(addsuffix .cpp, $$(basename $$($(1)_OBJ_PURE)))
-	$$(CC) $$(CFLAGS) $$(OPT) -c $(1) -o $$($(1)_OBJ) $$(LDLIBS)
+	@echo "Compiling: " $$(addsuffix .cpp, $$(basename $$($(1)_OBJ_PURE)))
+	@$$(CC) $$(CFLAGS) $$(OPT) -c $(1) -o $$($(1)_OBJ) $$(LDLIBS)
 endef
 
 # Compiling

@@ -41,12 +41,12 @@ void Snake::draw() const
     }
 }
 
-void Snake::newCoordinates(ArrowKey key)
+void Snake::newCoordinates(int arrowKey)
 {
     int i;
     
-    switch (key){
-	case ArrowKey::left:
+    switch (arrowKey){
+	case KEY_LEFT:
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
@@ -54,7 +54,7 @@ void Snake::newCoordinates(ArrowKey key)
 	    x[0] = x[0] - 1;
 	break;
 	
-	case ArrowKey::right:
+	case KEY_RIGHT:
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
@@ -62,7 +62,7 @@ void Snake::newCoordinates(ArrowKey key)
 	    x[0] = x[0] + 1;
 	break;
 	
-	case ArrowKey::up:
+	case KEY_UP:
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
@@ -70,7 +70,7 @@ void Snake::newCoordinates(ArrowKey key)
 	    y[0] = y[0] - 1;
 	break;
 	
-	case ArrowKey::down:
+	case KEY_DOWN:
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
