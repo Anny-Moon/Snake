@@ -5,12 +5,27 @@
 */
 
 #include "../include/Gameplay.h"
-#include <stdio.h>
 #include <ncurses.h>
+//#include <time.h>
+int Gameplay::kbhit()
+{
+    int ch = getch();
+    printw("%i\n", ch);
+    if (ch != ERR) {
+        ungetch(ch);
+        return 1;
+    } 
+    
+    else {
+        return 0;
+    }
+
+}
 
 void Gameplay::gameLoop(Snake* snake, int ch)
 {
-    //char ch;
+//    time_t initialTime, currentTime;
+    int latestCh = ch;
     
     if(ch == 'q' || ch == 'Q')
 	return;
@@ -18,10 +33,29 @@ void Gameplay::gameLoop(Snake* snake, int ch)
     // Show the main character on the screen
     snake->draw();
     refresh();
- 
+    
     for(;;){
-	ch = getch();
-
+//	initialTime = time(NULL);
+//	currentTime = time(NULL);
+	
+	timeout(0);
+    	ch = getch();
+	    
+	if(ch == ERR)
+	    ch = latestCh;
+	//if(kbhit()){
+	//	ch = getch();
+	//    }
+	//ch = latestCh;
+	//timeout(200);
+	//else
+	//    ch = latestCh;
+	
+	//printw("%.f\n",difftime(time(NULL),initialTime));
+	//refresh();
+	//if(difftime(time(NULL),initialTime)>0.5){
+	//    ch = KEY_UP;}
+	
 	if(ch == KEY_LEFT || ch == KEY_RIGHT || ch == KEY_UP || ch == KEY_DOWN){
 	    snake->newCoordinates(ch);
 	    erase();
@@ -31,7 +65,10 @@ void Gameplay::gameLoop(Snake* snake, int ch)
 	
 	else if(ch == 'q' || ch == 'Q')
 	    break;
+	latestCh = ch;
 	
+	//pause 
+	napms(500);
     }
     
 }
