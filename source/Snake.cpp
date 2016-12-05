@@ -81,5 +81,16 @@ void Snake::newCoordinates(int arrowKey)
 	default:
 	break;
     }
+}
 
+bool Snake::collisionDetection()
+{
+    bool answ = false;
+    int i;
+    
+    for(i=4;i<length;i++)
+	if(x[0]==x[i] && y[0]==y[i])
+	    return true;
+	    
+    return answ;
 }

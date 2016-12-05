@@ -13,7 +13,6 @@ class Gameplay
 {
 public:
     static void gameLoop(Snake* snake, int ch);
-    static int kbhit();
 };
 
 #endif

@@ -12,9 +12,8 @@ int main()
     //beep();
     start_color(); 
     init_color(COLOR_BLUE, 0, 700, 900);
-    init_pair(1, COLOR_BLUE, COLOR_CYAN
-    );
-    
+    init_pair(1, COLOR_BLUE, COLOR_CYAN);
+    init_pair(2, COLOR_WHITE, COLOR_RED);
     printw("Do you want to play a bit ;)\nPress any key to start.\nIf you want to quit press \"q\" or \"Q\"");
     // Wait until the user press a key
     int ch = getch();

@@ -24,7 +24,7 @@ public:
     
     void draw() const;
     void newCoordinates (int arrowKey);
-    
+    bool collisionDetection();
 };
 
 #endif

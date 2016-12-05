@@ -6,25 +6,11 @@
 
 #include "../include/Gameplay.h"
 #include <ncurses.h>
-//#include <time.h>
-int Gameplay::kbhit()
-{
-    int ch = getch();
-    printw("%i\n", ch);
-    if (ch != ERR) {
-        ungetch(ch);
-        return 1;
-    } 
-    
-    else {
-        return 0;
-    }
-
-}
+#include <time.h>
 
 void Gameplay::gameLoop(Snake* snake, int ch)
 {
-//    time_t initialTime, currentTime;
+    time_t initialTime, currentTime;
     int latestCh = ch;
     
     if(ch == 'q' || ch == 'Q')
@@ -35,26 +21,20 @@ void Gameplay::gameLoop(Snake* snake, int ch)
     refresh();
     
     for(;;){
-//	initialTime = time(NULL);
-//	currentTime = time(NULL);
+	initialTime = time(NULL);
+	currentTime = time(NULL);
 	
 	timeout(0);
     	ch = getch();
 	    
+	//while(difftime(currentTime,initialTime)<0.5){
+	//    currentTime = time(NULL);
+	//    if(ch != ERR)
+	//	break;
+	//}
+	
 	if(ch == ERR)
 	    ch = latestCh;
-	//if(kbhit()){
-	//	ch = getch();
-	//    }
-	//ch = latestCh;
-	//timeout(200);
-	//else
-	//    ch = latestCh;
-	
-	//printw("%.f\n",difftime(time(NULL),initialTime));
-	//refresh();
-	//if(difftime(time(NULL),initialTime)>0.5){
-	//    ch = KEY_UP;}
 	
 	if(ch == KEY_LEFT || ch == KEY_RIGHT || ch == KEY_UP || ch == KEY_DOWN){
 	    snake->newCoordinates(ch);
@@ -65,10 +45,21 @@ void Gameplay::gameLoop(Snake* snake, int ch)
 	
 	else if(ch == 'q' || ch == 'Q')
 	    break;
-	latestCh = ch;
 	
+	if(snake->collisionDetection())
+	{	
+	    beep();
+	    clear();
+	    attron(COLOR_PAIR(2));
+	    printw("LOOOOOSER!\n");
+	    refresh();
+	    napms(2000);
+	    return;
+	}
+	
+	latestCh = ch;
 	//pause 
-	napms(500);
+	napms(300);
     }
     
 }
