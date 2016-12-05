@@ -12,7 +12,7 @@
 class Gameplay
 {
 public:
-    static void gameLoop(Snake* snake, int ch);
+    static void gameLoop(Snake* snake, Apple* apple, int ch);
 };
 
 #endif

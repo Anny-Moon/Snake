@@ -31,6 +31,80 @@ Snake::~Snake()
     delete [] y;
 }
 
+int Snake::tailDirection()
+{
+    // along y
+    if(x[length-1] == x[length - 2]){
+	//to +y
+	if(y[length-1] > y[length-2])
+	    return 2;
+	//to -y
+	else
+	    return -2;
+	
+    }
+    
+    // along x
+    else if(y[length-1] == y[length - 2]){
+	//to +x @----
+	if(x[length-1] > x[length-2])
+	    return 1;
+	//to -x ----@
+	else
+	    return -1;
+    }
+    else{
+	printf ("Something went wrong\n");
+	endwin();
+	exit(1);
+    }
+}
+void Snake::changeLength(int newLength)
+{
+    int i,j;
+    int tmpX[length];
+    int tmpY[length];
+    int tailDir = tailDirection();
+    
+    for(i=0;i<length;i++){
+	tmpX[i] = x[i];
+	tmpY[i] = y[i];
+    }
+    
+    delete [] x;
+    delete [] y;
+    
+    x = new int [newLength];
+    y = new int [newLength];
+    
+    for(i=0;i<length;i++){
+	x[i] = tmpX[i];
+	y[i] = tmpY[i];
+    }
+    
+    for(j=i; j<newLength;j++){
+	switch (tailDir){
+	    case 1:
+		x[j] = x[j-1] + 1;
+		y[j] = y[j-1];
+		break;
+	    case -1:
+		x[j] = x[j-1] - 1;
+		y[j] = y[j-1];
+		break;
+	    case 2:
+		x[j] = x[j-1];
+		y[j] = y[j-1] + 1;
+		break;
+	    case -2:
+		x[j] = x[j-1];
+		y[j] = y[j-1] - 1;
+		break;
+	}
+    }
+    
+    length = newLength;
+}
 void Snake::draw() const
 {
     int i;
@@ -93,4 +167,13 @@ bool Snake::collisionDetection()
 	    return true;
 	    
     return answ;
+}
+
+void Snake::eatApple(Apple::Type appleType)
+{
+    switch (appleType){
+	case Apple::normal:
+	    changeLength(length+1);
+	    break;
+    }
 }

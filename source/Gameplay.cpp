@@ -8,7 +8,7 @@
 #include <ncurses.h>
 #include <time.h>
 
-void Gameplay::gameLoop(Snake* snake, int ch)
+void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 {
     time_t initialTime, currentTime;
     int latestCh = ch;
@@ -18,15 +18,26 @@ void Gameplay::gameLoop(Snake* snake, int ch)
     
     // Show the main character on the screen
     snake->draw();
+    apple->draw();
+    
     refresh();
     
     for(;;){
-	initialTime = time(NULL);
-	currentTime = time(NULL);
+//	initialTime = time(NULL);
+//	currentTime = time(NULL);
+	
+	if(apple->collisionDetection(snake->x[0], snake->y[0])){
+	    snake->eatApple(Apple::normal);
+	    apple->newCoordinates();
+	    erase();
+	    snake->draw();
+	    apple->draw();
+	    refresh();
+	}
 	
 	timeout(0);
     	ch = getch();
-	    
+	
 	//while(difftime(currentTime,initialTime)<0.5){
 	//    currentTime = time(NULL);
 	//    if(ch != ERR)
@@ -40,6 +51,7 @@ void Gameplay::gameLoop(Snake* snake, int ch)
 	    snake->newCoordinates(ch);
 	    erase();
 	    snake->draw();
+	    apple->draw();
 	    refresh();
 	}
 	

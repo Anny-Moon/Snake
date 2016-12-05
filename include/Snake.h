@@ -7,6 +7,7 @@
 #ifndef ANNA_SNAKE
 #define ANNA_SNAKE
 
+#include "Apple.h"
 
 class Snake
 {
@@ -25,6 +26,10 @@ public:
     void draw() const;
     void newCoordinates (int arrowKey);
     bool collisionDetection();
+    
+    int tailDirection();
+    void changeLength(int newLength);
+    void eatApple(Apple::Type appleType);
 };
 
 #endif

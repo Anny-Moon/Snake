@@ -1,6 +1,9 @@
 #include "../include/Snake.h"
+#include "../include/Apple.h"
 #include "../include/Gameplay.h"
 #include <ncurses.h>
+#include <time.h>
+#include <stdlib.h>
 
 int main()
 {
@@ -11,6 +14,8 @@ int main()
     keypad(stdscr, TRUE);
     //beep();
     start_color(); 
+    srand (time(NULL));
+    
     init_color(COLOR_BLUE, 0, 700, 900);
     init_pair(1, COLOR_BLUE, COLOR_CYAN);
     init_pair(2, COLOR_WHITE, COLOR_RED);
@@ -20,10 +25,11 @@ int main()
  
     // Clear the screen
     clear();
-    Snake snake(15, 20, 10);
+    Snake snake(4, 20, 30);
+    Apple apple(30, 30, '$');
     // Start the game loop
     attron(COLOR_PAIR(1));
-    Gameplay::gameLoop(&snake, ch);
+    Gameplay::gameLoop(&snake, &apple, ch);
     attroff(COLOR_PAIR(1));
     // Clear ncurses data structures
     endwin();
