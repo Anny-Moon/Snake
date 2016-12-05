@@ -31,6 +31,35 @@ Snake::~Snake()
     delete [] y;
 }
 
+int Snake::headDirection()
+{
+    // along y
+    if(x[0] == x[1]){
+	//to +y
+	if(y[0] > y[1])
+	    return 2;
+	//to -y
+	else
+	    return -2;
+	
+    }
+    
+    // along x
+    else if(y[0] == y[1]){
+	//to +x @----
+	if(x[0] > x[1])
+	    return 1;
+	//to -x ----@
+	else
+	    return -1;
+    }
+    else{
+	printf ("Something went wrong\n");
+	endwin();
+	exit(1);
+    }
+}
+
 int Snake::tailDirection()
 {
     // along y
@@ -65,6 +94,7 @@ void Snake::changeLength(int newLength)
     int tmpX[length];
     int tmpY[length];
     int tailDir = tailDirection();
+    int headDir = headDirection();
     
     for(i=0;i<length;i++){
 	tmpX[i] = x[i];
@@ -77,6 +107,25 @@ void Snake::changeLength(int newLength)
     x = new int [newLength];
     y = new int [newLength];
     
+/*    switch (headDir){
+	case 1:
+	    x[0] = tmpX[0] + 1;
+	    y[0] = tmpY[0];
+	    break;
+	case -1:
+	    x[0] = tmpX[0] - 1;
+	    y[0] = tmpY[0];
+	    break;
+	case 2:
+	    x[0] = tmpX[0];
+	    y[0] = tmpY[0] + 1;
+	    break;
+	case -2:
+	    x[0] = tmpX[0];
+	    y[0] = tmpY[0] - 1;
+	    break;
+    }
+*/    
     for(i=0;i<length;i++){
 	x[i] = tmpX[i];
 	y[i] = tmpY[i];
@@ -108,11 +157,13 @@ void Snake::changeLength(int newLength)
 void Snake::draw() const
 {
     int i;
+    attron(COLOR_PAIR(1));
     mvaddch(y[0], x[0], headChar);
 	
     for(i=1;i<length;i++){
 	mvaddch(y[i], x[i], bodyChar);
     }
+    attroff(COLOR_PAIR(1));
 }
 
 void Snake::newCoordinates(int arrowKey)

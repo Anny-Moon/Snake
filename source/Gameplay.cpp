@@ -30,8 +30,8 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	    snake->eatApple(Apple::normal);
 	    apple->newCoordinates();
 	    erase();
-	    snake->draw();
 	    apple->draw();
+	    snake->draw();
 	    refresh();
 	}
 	
@@ -50,8 +50,8 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	if(ch == KEY_LEFT || ch == KEY_RIGHT || ch == KEY_UP || ch == KEY_DOWN){
 	    snake->newCoordinates(ch);
 	    erase();
-	    snake->draw();
 	    apple->draw();
+	    snake->draw();
 	    refresh();
 	}
 	

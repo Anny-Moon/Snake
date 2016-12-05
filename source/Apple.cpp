@@ -14,13 +14,15 @@ Apple::~Apple(){}
 
 void Apple::draw() const
 {	
+    attron(COLOR_PAIR(2));
     mvaddch(y, x, appleChar);
+    attroff(COLOR_PAIR(2));
 }
 
 void Apple::newCoordinates()
 {
-    x = rand() % 30;
-    y = rand() % 50;
+    x = rand() % 50;
+    y = rand() % 30;
 }
 
 bool Apple::collisionDetection(int xSnake, int ySnake)

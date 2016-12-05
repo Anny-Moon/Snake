@@ -27,6 +27,7 @@ public:
     void newCoordinates (int arrowKey);
     bool collisionDetection();
     
+    int headDirection();
     int tailDirection();
     void changeLength(int newLength);
     void eatApple(Apple::Type appleType);

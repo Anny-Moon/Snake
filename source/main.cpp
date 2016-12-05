@@ -28,9 +28,8 @@ int main()
     Snake snake(4, 20, 30);
     Apple apple(30, 30, '$');
     // Start the game loop
-    attron(COLOR_PAIR(1));
+    
     Gameplay::gameLoop(&snake, &apple, ch);
-    attroff(COLOR_PAIR(1));
     // Clear ncurses data structures
     endwin();
     printf("Fin!\n");
