@@ -32,6 +32,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	    erase();
 	    apple->draw();
 	    snake->draw();
+	    move(0, 0);// move cursor
 	    refresh();
 	}
 	
@@ -52,6 +53,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	    erase();
 	    apple->draw();
 	    snake->draw();
+	    move(0, 0); // move cursor
 	    refresh();
 	}
 	

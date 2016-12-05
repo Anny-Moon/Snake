@@ -28,7 +28,6 @@ int main()
     Snake snake(4, 20, 30);
     Apple apple(30, 30, '$');
     // Start the game loop
-    
     Gameplay::gameLoop(&snake, &apple, ch);
     // Clear ncurses data structures
     endwin();
