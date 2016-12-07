@@ -8,6 +8,7 @@
 #define ANNA_SNAKE
 
 #include "Apple.h"
+#include "Box.h"
 
 class Snake
 {
@@ -25,7 +26,7 @@ public:
     
     void draw() const;
     void newCoordinates (int arrowKey);
-    bool collisionDetection();
+    bool collisionDetection(const Box& box);
     
     int headDirection();
     int tailDirection();

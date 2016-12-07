@@ -8,7 +8,7 @@
 #include <ncurses.h>
 #include <time.h>
 
-void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
+void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, int ch)
 {
     time_t initialTime, currentTime;
     int latestCh = ch;
@@ -17,6 +17,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	return;
     
     // Show the main character on the screen
+    box->draw();
     snake->draw();
     apple->draw();
     
@@ -28,8 +29,9 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	
 	if(apple->collisionDetection(snake->x[0], snake->y[0])){
 	    snake->eatApple(Apple::normal);
-	    apple->newCoordinates();
+	    apple->newCoordinates(*box);
 	    erase();
+	    box->draw();
 	    apple->draw();
 	    snake->draw();
 	    move(0, 0);// move cursor
@@ -51,6 +53,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	if(ch == KEY_LEFT || ch == KEY_RIGHT || ch == KEY_UP || ch == KEY_DOWN){
 	    snake->newCoordinates(ch);
 	    erase();
+	    box->draw();
 	    apple->draw();
 	    snake->draw();
 	    move(0, 0); // move cursor
@@ -60,7 +63,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	else if(ch == 'q' || ch == 'Q')
 	    break;
 	
-	if(snake->collisionDetection())
+	if(snake->collisionDetection(*box))
 	{	
 	    beep();
 	    clear();
@@ -73,7 +76,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, int ch)
 	
 	latestCh = ch;
 	//pause 
-	napms(300);
+	napms(100);
     }
     
 }

@@ -19,10 +19,10 @@ void Apple::draw() const
     attroff(COLOR_PAIR(2));
 }
 
-void Apple::newCoordinates()
+void Apple::newCoordinates(const Box& box)
 {
-    x = rand() % 50;
-    y = rand() % 30;
+    x = rand() % box.width + box.left;
+    y = rand() % box.height + box.top;
 }
 
 bool Apple::collisionDetection(int xSnake, int ySnake)

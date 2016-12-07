@@ -7,6 +7,7 @@
 #ifndef ANNA_APPLE
 #define ANNA_APPLE
 
+#include "Box.h"
 
 class Apple
 {
@@ -23,7 +24,7 @@ public:
     ~Apple();
     
     void draw() const;
-    void newCoordinates ();
+    void newCoordinates (const Box& box);
     bool collisionDetection(int xSnake, int ySnake);
 };
 

@@ -208,15 +208,23 @@ void Snake::newCoordinates(int arrowKey)
     }
 }
 
-bool Snake::collisionDetection()
+bool Snake::collisionDetection(const Box& box)
 {
     bool answ = false;
     int i;
     
+    /* Self collisions*/
     for(i=4;i<length;i++)
 	if(x[0]==x[i] && y[0]==y[i])
 	    return true;
-	    
+    
+    /* Collisions with walls*/
+    if(y[0] == box.top-1 || y[0] == box.bottom+1)
+        return true;
+    
+    if(x[0] == box.left-1 || x[0] == box.right+1)
+        return true;
+        
     return answ;
 }
 
