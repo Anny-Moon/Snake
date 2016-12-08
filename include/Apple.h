@@ -19,8 +19,9 @@ public:
     int y;
     
     enum Type{normal};//< different bonuses
-    
-    Apple(int x_in, int y_in, char ch);
+    Type type;
+
+    Apple(int x_in, int y_in, char ch, Type type_in = normal);
     ~Apple();
     
     void draw() const;

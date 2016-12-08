@@ -10,11 +10,11 @@
 #include "Snake.h"
 #include "Apple.h"
 #include "Box.h"
-
+#include "Score.h"
 class Gameplay
 {
 public:
-    static void gameLoop(Snake* snake, Apple* apple, Box* box, int ch);
+    static void gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, int ch);
 };
 
 #endif

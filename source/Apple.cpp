@@ -2,11 +2,12 @@
 #include <stdlib.h> // for random
 #include <ncurses.h>
 
-Apple::Apple(int x_in, int y_in, char ch)
+Apple::Apple(int x_in, int y_in, char ch, Type type_in)
 {
     x = x_in;
     y = y_in;
     appleChar = ch;
+    type = type_in;
 
 }
 

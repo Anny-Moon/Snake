@@ -8,7 +8,7 @@
 #include <ncurses.h>
 #include <time.h>
 
-void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, int ch)
+void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, int ch)
 {
     time_t initialTime, currentTime;
     int latestCh = ch;
@@ -20,6 +20,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, int ch)
     box->draw();
     snake->draw();
     apple->draw();
+    score->draw();
     
     refresh();
     
@@ -30,10 +31,12 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, int ch)
 	if(apple->collisionDetection(snake->x[0], snake->y[0])){
 	    snake->eatApple(Apple::normal);
 	    apple->newCoordinates(*box);
+	    score->calculatePoints(*apple);
 	    erase();
 	    box->draw();
 	    apple->draw();
 	    snake->draw();
+	    score->draw();
 	    move(0, 0);// move cursor
 	    refresh();
 	}
@@ -56,6 +59,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, int ch)
 	    box->draw();
 	    apple->draw();
 	    snake->draw();
+	    score->draw();
 	    move(0, 0); // move cursor
 	    refresh();
 	}
@@ -64,11 +68,13 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, int ch)
 	    break;
 	
 	if(snake->collisionDetection(*box))
-	{	
+	{
 	    beep();
+	    napms(2000);
 	    clear();
 	    attron(COLOR_PAIR(2));
 	    printw("LOOOOOSER!\n");
+	    score->draw();
 	    refresh();
 	    napms(2000);
 	    return;
