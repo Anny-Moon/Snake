@@ -73,7 +73,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, int 
 	    napms(2000);
 	    clear();
 	    attron(COLOR_PAIR(2));
-	    printw("LOOOOOSER!\n");
+	    mvprintw(2, 3,"LOOOOOSER!\n");
 	    score->draw();
 	    refresh();
 	    napms(2000);

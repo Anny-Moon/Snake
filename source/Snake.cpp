@@ -169,9 +169,19 @@ void Snake::draw() const
 void Snake::newCoordinates(int arrowKey)
 {
     int i;
+    int headDir = headDirection();
     
     switch (arrowKey){
 	case KEY_LEFT:
+	    if(headDir == 1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] + 1;
+		return;
+	    }
+
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
@@ -180,6 +190,15 @@ void Snake::newCoordinates(int arrowKey)
 	break;
 	
 	case KEY_RIGHT:
+	    if(headDir == -1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] - 1;
+		return;
+	    }
+	    
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
@@ -188,6 +207,15 @@ void Snake::newCoordinates(int arrowKey)
 	break;
 	
 	case KEY_UP:
+	    if(headDir == 2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] + 1;
+		return;
+	    }
+	    
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
@@ -196,6 +224,15 @@ void Snake::newCoordinates(int arrowKey)
 	break;
 	
 	case KEY_DOWN:
+	    if(headDir == -2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] - 1;
+		return;
+	    }
+	    
 	    for(i=length-1;i>0;i--){
 		x[i] = x[i-1];
 		y[i] = y[i-1];
