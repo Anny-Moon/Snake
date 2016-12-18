@@ -1,7 +1,7 @@
 # Snake
 Game or something like this
 
-# Quick Start
+## Quick Start
 
 ```bash
 $ make
