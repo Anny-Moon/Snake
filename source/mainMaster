@@ -9,7 +9,6 @@
 #include "../include/Box.h"
 #include "../include/Score.h"
 #include "../include/Gameplay.h"
-#include "../include/Piece.h"
 #include <ncurses.h>
 #include <time.h>
 #include <stdlib.h>
@@ -38,10 +37,8 @@ int main()
     Snake snake(4, 20, 30);
     Apple apple(30, 30, '$');
     Score score(5 ,3);
-    
-    Piece piece (10.0, 10.0, 0.02, 0.051, -0.000001, -0.00001, &box);
     // Start the game loop
-    Gameplay::gameLoop(&snake, &apple, &box, &score, &piece, ch);
+    Gameplay::gameLoop(&snake, &apple, &box, &score, ch);
     // Clear ncurses data structures
     endwin();
     printf("Fin!\n");

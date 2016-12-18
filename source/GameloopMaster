@@ -8,36 +8,25 @@
 #include <ncurses.h>
 #include <time.h>
 
-void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piece* piece, int ch)
+void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, int ch)
 {
     time_t initialTime, currentTime;
     int latestCh = ch;
-    
-    int dTime = 100;
-    double absoluteTime = 0.0;
     
     if(ch == 'q' || ch == 'Q')
 	return;
     
     // Show the main character on the screen
-
     box->draw();
     snake->draw();
     apple->draw();
     score->draw();
     
-    piece->draw();    
-    move(0, 0);// move cursor
     refresh();
     
     for(;;){
 //	initialTime = time(NULL);
 //	currentTime = time(NULL);
-	absoluteTime += (double)dTime;
-	piece->erase();
-	piece->findCoordinates(absoluteTime);
-	piece->draw();
-	move(0, 0);// move cursor
 	
 	if(apple->collisionDetection(snake->x[0], snake->y[0])){
 	    snake->eatApple(Apple::normal);
@@ -48,8 +37,6 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
 	    apple->draw();
 	    snake->draw();
 	    score->draw();
-	    
-
 	    move(0, 0);// move cursor
 	    refresh();
 	}
@@ -73,8 +60,6 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
 	    apple->draw();
 	    snake->draw();
 	    score->draw();
-	    
-	    piece->draw();
 	    move(0, 0); // move cursor
 	    refresh();
 	}
@@ -97,7 +82,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
 	
 	latestCh = ch;
 	//pause 
-	napms(dTime);
+	napms(100);
     }
     
 }
