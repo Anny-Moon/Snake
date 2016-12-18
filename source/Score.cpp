@@ -1,3 +1,9 @@
+/** @package Snake
+* @file Score.cpp
+* @autor Anna Sinelnikova
+* @data 2016
+*/
+
 #include "../include/Score.h"
 #include <ncurses.h>
 

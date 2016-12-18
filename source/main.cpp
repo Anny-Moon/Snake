@@ -1,3 +1,9 @@
+/** @package Snake
+* @file main.cpp
+* @autor Anna Sinelnikova
+* @data 2016
+*/
+
 #include "../include/Snake.h"
 #include "../include/Apple.h"
 #include "../include/Box.h"
@@ -21,7 +27,7 @@ int main()
     init_color(COLOR_BLUE, 0, 700, 900);
     init_pair(1, COLOR_BLUE, COLOR_CYAN);
     init_pair(2, COLOR_WHITE, COLOR_RED);
-    printw("Do you want to play a bit, Kristofer ;)\nPress any key to start.\nIf you want to quit press \"q\" or \"Q\"");
+    printw("Press any key to start.\nIf you want to quit press \"q\" or \"Q\" at any time");
     // Wait until the user press a key
     int ch = getch();
  

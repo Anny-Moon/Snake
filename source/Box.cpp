@@ -1,3 +1,9 @@
+/** @package Snake
+* @file Box.cpp
+* @autor Anna Sinelnikova
+* @data 2016
+*/
+
 #include "../include/Box.h"
 #include <ncurses.h>
 

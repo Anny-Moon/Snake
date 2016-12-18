@@ -1,3 +1,9 @@
+/** @package Snake
+* @file Apple.cpp
+* @autor Anna Sinelnikova
+* @data 2016
+*/
+
 #include "../include/Apple.h"
 #include <stdlib.h> // for random
 #include <ncurses.h>
