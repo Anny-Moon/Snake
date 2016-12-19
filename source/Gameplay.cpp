@@ -13,7 +13,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
     time_t initialTime, currentTime;
     int latestCh = ch;
     
-    int dTime = 100;
+    int dTime = 10;
     double absoluteTime = 0.0;
     
     if(ch == 'q' || ch == 'Q')

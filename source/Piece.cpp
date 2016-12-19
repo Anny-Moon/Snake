@@ -62,14 +62,32 @@ void Piece::findCoordinates(double time_in)
     intY = findIntY();
 }
 
+int Piece::rounding(double number)
+{
+    double intpart;
+    double fracpart;
+    int answ;
+
+    fracpart=modf (number , &intpart);
+
+    if(fabs(fracpart)<0.499999)
+	answ=(int)intpart;
+    
+    else
+	answ=(int)intpart+1;
+    
+    return answ;
+}
+
+
 int Piece::findIntX()
 {
-    return (int)x;
+    return rounding(x);
 }
 
 int Piece::findIntY()
 {
-    return (int)y;
+    return rounding(y);
 }
 
 void Piece::erase() const

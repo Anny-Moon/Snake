@@ -33,6 +33,7 @@ public:
     ~Piece();
     
 //    void setBox(const Box& box);
+    int rounding(double number);
     int findIntX();
     int findIntY();
     void findCoordinates(double time);
