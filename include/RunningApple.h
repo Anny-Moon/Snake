@@ -24,7 +24,7 @@ public:
     void newStableApple();
     void newRunningApple();
     
-    bool collisionDetection(int xSnake, int ySnake);
+    bool eatingDetection(int xSnake, int ySnake);
 };
 
 #endif

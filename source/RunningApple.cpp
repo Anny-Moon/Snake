@@ -56,7 +56,7 @@ void RunningApple::newRunningApple()
     accelerationY = 0.0;
 }
 
-bool RunningApple::collisionDetection(int xSnake, int ySnake)
+bool RunningApple::eatingDetection(int xSnake, int ySnake)
 {
     if(xSnake == intX && ySnake == intY)
 	return true;

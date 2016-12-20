@@ -37,7 +37,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	currentTime = time(NULL);
 	absoluteTime += 1;
 	
-	if(apple->collisionDetection(snake->x[0], snake->y[0])){
+	if(apple->eatingDetection(snake->x[0], snake->y[0])){
 	    appleCounter++;
 	    snake->erase();
 	    apple->erase();
