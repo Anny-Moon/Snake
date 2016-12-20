@@ -77,14 +77,35 @@ void Explosion::setPhysics()
 
 void Explosion::findCoordinates(double time_in)
 {
-    int i;
+    int i, j;
     time = time_in;
 //    mvprintw(31,60,"%g",time);
+/*    int* xOthers;
+    int* yOthers;
     
     for(i=0;i<numPieces;i++){
-	piece[i].findCoordinates(time, NULL,NULL,0);
+	xOthers = new int [numPieces-1];
+	yOthers = new int [numPieces-1];
+	
+	for(j=0;j<i;j++){
+	    xOthers[j] = x[j];
+	    yOthers[j] = x[j];
+	}
+	
+	for(j=i+1;j<numPieces;j++){
+	    xOthers[j-1] = x[j];
+	    yOthers[j-1] = x[j];
+	}
+	
+	piece[i].findCoordinates(time, xOthers,yOthers, numPieces-1);
+	
+	delete [] xOthers;
+	delete [] yOthers;
     }
-    
+*/
+    for(i=0;i<numPieces;i++)
+	piece[i].findCoordinates(time, NULL,NULL, 0);
+
 //    mvprintw(25,60,"%g",velocityX[0]);
 //    mvprintw(28,60,"%g",piece[0].velocityX);
 
@@ -102,7 +123,10 @@ void Explosion::erase() const
 void Explosion::draw() const
 {
     int i;
-        
+        piece[0].pieceChar = 'L';
+        piece[1].pieceChar = 'S';
+        piece[2].pieceChar = 'E';
+        piece[3].pieceChar = 'R';
         
     for(i=0;i<numPieces;i++){
 	piece[i].draw();

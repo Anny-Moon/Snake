@@ -120,13 +120,15 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 		napms(1);
 		t++;
 	    }
-	    
+	    /*
 	    clear();
 	    attron(COLOR_PAIR(2));
-	    mvprintw(2, 3,"LOOOOOSER!\n");
+	    //mvprintw(2, 4,"Try next time!");
 	    score->draw();
+	    move(0,0);
 	    refresh();
 	    napms(2000);
+	    */
 	    return;
 	}
 	
