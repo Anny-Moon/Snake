@@ -6,6 +6,7 @@
 
 #include "../include/Snake.h"
 #include "../include/Apple.h"
+#include "../include/RunningApple.h"
 #include "../include/Box.h"
 #include "../include/Score.h"
 #include "../include/Gameplay.h"
@@ -37,7 +38,10 @@ int main()
     clear();
     Box box(50, 30 ,5,5);
     Snake snake(10, 20, 30);
-    Apple apple(30, 30, '$');
+    RunningApple apple(&box,'$');
+    apple.x = 30.0;
+    apple.y = 30.0;
+
     Score score(5 ,3);
     
     Piece piece (10.0, 10.0, 0.02, 0.051, -0.000001, -0.00001, &box);

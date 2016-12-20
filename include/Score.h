@@ -24,6 +24,7 @@ public:
     ~Score();
     
     void calculatePoints(const Apple& apple);
+    void calculatePoints(int points_in);
     void draw() const;
 };
 

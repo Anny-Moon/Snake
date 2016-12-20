@@ -6,21 +6,25 @@
 
 #include "../include/Gameplay.h"
 #include "Explosion.h"
+#include <stdlib.h> //for rand 
 #include <ncurses.h>
 #include <time.h>
 
-void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piece* piece, int ch)
+void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, Piece* piece, int ch)
 {
     time_t initialTime, currentTime;
+    int appleCounter = 0;
+    int points = 10; // the first apple
+    int randomNumber;
     int latestCh = ch;
     
     int dTime = 100;
     int absoluteTime = 0;
     
+    
     if(ch == 'q' || ch == 'Q')
 	return;
     
-
     box->draw();
     snake->draw();
     apple->draw();
@@ -34,20 +38,29 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
 	absoluteTime += 1;
 	
 	if(apple->collisionDetection(snake->x[0], snake->y[0])){
-	    snake->eatApple(Apple::normal);
+	    appleCounter++;
 	    snake->erase();
-//	    snake->newCoordinates(latestCh);
-//	    snake->draw();
 	    apple->erase();
-	    apple->newCoordinates(*box);
-	    score->calculatePoints(*apple);
-	    //erase();
-	    //box->draw();
-	    apple->draw();
-	    snake->draw();
-	    //score->draw();
+	
+	    score->calculatePoints(points);
 	    
+	    snake->eatApple(Apple::normal);
+	    score->draw();
+	    snake->draw();
 
+	    randomNumber = rand()%4;
+	    
+	    if(randomNumber == 0){
+		apple->newRunningApple();
+		points = 20;
+	    }
+	    
+	    else{
+		apple->newStableApple();
+		points = 10;
+	    }
+	    apple->draw();
+	    
 	    move(0, 0);// move cursor
 	    refresh();
 	}
@@ -55,11 +68,11 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
 	timeout(0);
     	ch = getch();
 	
-	//while(difftime(currentTime,initialTime)<0.5){
-	//    currentTime = time(NULL);
-	//    if(ch != ERR)
-	//	break;
-	//}
+	apple->erase();
+	apple->findCoordinates((double)absoluteTime);
+	apple->draw();
+	move(0, 0);
+	refresh();
 	
 	if(ch == ERR)
 	    ch = latestCh;

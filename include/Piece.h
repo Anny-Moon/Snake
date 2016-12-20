@@ -12,8 +12,10 @@
 class Piece
 {
 private:
-    char pieceChar;
+    
 public:
+    char pieceChar;
+
     double x;
     double y;
     

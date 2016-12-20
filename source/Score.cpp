@@ -27,6 +27,11 @@ void Score::calculatePoints(const Apple& apple)
     }
 }
 
+void Score::calculatePoints(int points_in)
+{
+    points += points_in;
+}
+
 void Score::draw() const
 {
     int i;
