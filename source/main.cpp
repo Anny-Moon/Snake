@@ -37,7 +37,7 @@ int main()
     // Clear the screen
     clear();
     Box box(50, 30 ,5,5);
-    Snake snake(4, 20, 30);
+    Snake snake(40, 20, 30);
     RunningApple apple(&box,'$');
     apple.x = 30.0;
     apple.y = 30.0;

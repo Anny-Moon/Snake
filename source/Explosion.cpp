@@ -82,7 +82,7 @@ void Explosion::findCoordinates(double time_in)
 //    mvprintw(31,60,"%g",time);
     
     for(i=0;i<numPieces;i++){
-	piece[i].findCoordinates(time);
+	piece[i].findCoordinates(time, NULL,NULL,0);
     }
     
 //    mvprintw(25,60,"%g",velocityX[0]);

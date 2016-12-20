@@ -69,7 +69,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     	ch = getch();
 	
 	apple->erase();
-	apple->findCoordinates((double)absoluteTime);
+	apple->findCoordinates((double)absoluteTime, snake->x, snake->y, snake->length);
 	apple->draw();
 	move(0, 0);
 	refresh();
@@ -101,6 +101,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	{
 	    beep();
 	    napms(50);
+	    apple->erase();
 	    Explosion explosion(snake->length, snake->x, snake->y, box);
 	    explosion.setPhysics();
 	    explosion.findCoordinates(0.0);
