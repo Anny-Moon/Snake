@@ -30,9 +30,10 @@ public:
     const Box* box;
     
     Piece(double x0, double y0, double vx0, double vy0, double ax0 = 0.0, double ay0 = 0.0, const Box* box_in = NULL, double time0 = 0.0);
+    Piece();
     ~Piece();
     
-//    void setBox(const Box& box);
+    void setBox(const Box* box);
     int rounding(double number);
     int findIntX();
     int findIntY();

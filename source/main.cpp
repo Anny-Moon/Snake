@@ -10,6 +10,7 @@
 #include "../include/Score.h"
 #include "../include/Gameplay.h"
 #include "../include/Piece.h"
+#include "../include/Explosion.h"
 #include <ncurses.h>
 #include <time.h>
 #include <stdlib.h>
@@ -35,7 +36,7 @@ int main()
     // Clear the screen
     clear();
     Box box(50, 30 ,5,5);
-    Snake snake(4, 20, 30);
+    Snake snake(10, 20, 30);
     Apple apple(30, 30, '$');
     Score score(5 ,3);
     

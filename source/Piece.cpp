@@ -19,9 +19,17 @@ Piece::Piece(double x0, double y0, double vx0, double vy0, double ax0, double ay
     }
 }
 
+Piece::Piece()
+{
+    pieceChar = 'O';
+}
+
 Piece::~Piece(){};
 
-
+void Piece::setBox(const Box* box_in)
+{
+    box = box_in;
+}
 void Piece::findCoordinates(double time_in)
 {
     double tmp;
@@ -96,7 +104,7 @@ void Piece::erase() const
 }
 void Piece::draw() const
 {	
-    attron(COLOR_PAIR(1));
+    attron(COLOR_PAIR(2));
     mvaddch(intY, intX, pieceChar);
-    attroff(COLOR_PAIR(1));
+    attroff(COLOR_PAIR(2));
 }
