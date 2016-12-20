@@ -154,6 +154,16 @@ void Snake::changeLength(int newLength)
     
     length = newLength;
 }
+
+void Snake::erase() const
+{
+    int i;
+	
+    for(i=0;i<length;i++){
+	mvaddch(y[i], x[i], ' ');
+    }
+}
+
 void Snake::draw() const
 {
     int i;

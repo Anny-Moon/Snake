@@ -19,6 +19,10 @@ Apple::Apple(int x_in, int y_in, char ch, Type type_in)
 
 Apple::~Apple(){}
 
+void Apple::erase() const
+{
+    mvaddch(y, x, ' ');
+}
 void Apple::draw() const
 {	
     attron(COLOR_PAIR(2));

@@ -24,6 +24,7 @@ public:
     Snake(int length_in = 5, int xSatrt = 10, int yStart = 10);///@param x, y - position of head
     ~Snake();
     
+    void erase() const;
     void draw() const;
     void newCoordinates (int arrowKey);
     bool collisionDetection(const Box& box);

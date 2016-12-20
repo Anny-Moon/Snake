@@ -15,40 +15,37 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
     int latestCh = ch;
     
     int dTime = 100;
-    double absoluteTime = 0.0;
+    int absoluteTime = 0;
     
     if(ch == 'q' || ch == 'Q')
 	return;
     
-    // Show the main character on the screen
 
     box->draw();
     snake->draw();
     apple->draw();
     score->draw();
-    
-//    piece->draw();    
     move(0, 0);// move cursor
     refresh();
     
+    initialTime = time(NULL);
     for(;;){
-//	initialTime = time(NULL);
-//	currentTime = time(NULL);
-	absoluteTime += (double)dTime;
-//	piece->erase();
-//	piece->findCoordinates(absoluteTime);
-//	piece->draw();
-	move(0, 0);// move cursor
+	currentTime = time(NULL);
+	absoluteTime += 1;
 	
 	if(apple->collisionDetection(snake->x[0], snake->y[0])){
 	    snake->eatApple(Apple::normal);
+	    snake->erase();
+//	    snake->newCoordinates(latestCh);
+//	    snake->draw();
+	    apple->erase();
 	    apple->newCoordinates(*box);
 	    score->calculatePoints(*apple);
-	    erase();
-	    box->draw();
+	    //erase();
+	    //box->draw();
 	    apple->draw();
 	    snake->draw();
-	    score->draw();
+	    //score->draw();
 	    
 
 	    move(0, 0);// move cursor
@@ -68,16 +65,20 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
 	    ch = latestCh;
 	
 	if(ch == KEY_LEFT || ch == KEY_RIGHT || ch == KEY_UP || ch == KEY_DOWN){
-	    snake->newCoordinates(ch);
-	    erase();
-	    box->draw();
-	    apple->draw();
-	    snake->draw();
-	    score->draw();
 	    
-//	    piece->draw();
+	    if(absoluteTime%dTime == 0){
+		snake->erase();
+		snake->newCoordinates(ch);
+		//erase();
+		//box->draw();
+		apple->draw();
+		snake->draw();
+		//score->draw();
+	    
 	    move(0, 0); // move cursor
 	    refresh();
+	    }
+//	    napms(dTime);
 	}
 	
 	else if(ch == 'q' || ch == 'Q')
@@ -116,8 +117,7 @@ void Gameplay::gameLoop(Snake* snake, Apple* apple, Box* box, Score* score, Piec
 	}
 	
 	latestCh = ch;
-	//pause 
-	napms(dTime);
+	napms(1);
     }
     
 }
