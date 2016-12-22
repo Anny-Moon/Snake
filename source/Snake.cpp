@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 
-Snake::Snake(int length_in, int xStart, int yStart)
+Snake::Snake(int length_in, int xStart, int yStart, int dTime_in)
 {
     int i;
 	
@@ -23,6 +23,11 @@ Snake::Snake(int length_in, int xStart, int yStart)
 	x[i] = xStart - i;
 	y[i] = yStart;
     }
+    
+    dTime = dTime_in;
+    
+    keyboardMode = 1;
+    colorScheme = 1;
 }
 
 Snake::~Snake()
@@ -167,13 +172,13 @@ void Snake::erase() const
 void Snake::draw() const
 {
     int i;
-    attron(COLOR_PAIR(1));
+    attron(COLOR_PAIR(colorScheme));
     mvaddch(y[0], x[0], headChar);
 	
     for(i=1;i<length;i++){
 	mvaddch(y[i], x[i], bodyChar);
     }
-    attroff(COLOR_PAIR(1));
+    attroff(COLOR_PAIR(colorScheme));
 }
 
 void Snake::newCoordinates(int arrowKey)
@@ -181,8 +186,9 @@ void Snake::newCoordinates(int arrowKey)
     int i;
     int headDir = headDirection();
     
+    if(keyboardMode == 1){
     switch (arrowKey){
-	case KEY_LEFT:
+    	case KEY_LEFT:
 	    if(headDir == 1){
 		for(i=length-1;i>0;i--){
 		    x[i] = x[i-1];
@@ -251,8 +257,158 @@ void Snake::newCoordinates(int arrowKey)
 	break;
 	
 	default:
+	    if(headDir == 1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] + 1;
+		return;
+	    }
+	    
+	    if(headDir == -1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] - 1;
+		return;
+	    }
+	    
+	    if(headDir == 2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] + 1;
+		return;
+	    }
+	    
+	    if(headDir == -2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] - 1;
+		return;
+	    }
 	break;
-    }
+    }// end of case
+    }//end of if
+    
+    if(keyboardMode == 2){
+    switch (arrowKey){
+    	case 'A'://left
+    	case 'a':
+	    if(headDir == 1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] + 1;
+		return;
+	    }
+
+	    for(i=length-1;i>0;i--){
+		x[i] = x[i-1];
+		y[i] = y[i-1];
+	    }
+	    x[0] = x[0] - 1;
+	break;
+	
+	case 'D'://right
+	case 'd':
+	    if(headDir == -1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] - 1;
+		return;
+	    }
+	    
+	    for(i=length-1;i>0;i--){
+		x[i] = x[i-1];
+		y[i] = y[i-1];
+	    }
+	    x[0] = x[0] + 1;
+	break;
+	
+	case 'W'://up
+	case 'w':
+	    if(headDir == 2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] + 1;
+		return;
+	    }
+	    
+	    for(i=length-1;i>0;i--){
+		x[i] = x[i-1];
+		y[i] = y[i-1];
+	    }
+	    y[0] = y[0] - 1;
+	break;
+	
+	case 'S'://down
+	case 's':
+	    if(headDir == -2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] - 1;
+		return;
+	    }
+	    
+	    for(i=length-1;i>0;i--){
+		x[i] = x[i-1];
+		y[i] = y[i-1];
+	    }
+	    y[0] = y[0] + 1;
+	break;
+	
+	default:
+	    if(headDir == 1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] + 1;
+		return;
+	    }
+	    
+	    if(headDir == -1){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		x[0] = x[0] - 1;
+		return;
+	    }
+	    
+	    if(headDir == 2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] + 1;
+		return;
+	    }
+	    
+	    if(headDir == -2){
+		for(i=length-1;i>0;i--){
+		    x[i] = x[i-1];
+		    y[i] = y[i-1];
+		}
+		y[0] = y[0] - 1;
+		return;
+	    }
+	break;
+    }// end of case
+    }//end of if
 }
 
 bool Snake::collisionDetection(const Box& box)
@@ -271,6 +427,30 @@ bool Snake::collisionDetection(const Box& box)
     
     if(x[0] == box.left-1 || x[0] == box.right+1)
         return true;
+        
+    return answ;
+}
+
+bool Snake::collisionDetection(const int* xObst, const int* yObst, int N)
+{
+    bool answ = false;
+    int i;
+    
+    int headDir=headDirection();
+
+    for(i=0;i<N;i++){
+	if(x[0]==xObst[i]-1 && y[0]==yObst[i] && headDir == 1) // comes from left
+	    return true;
+	if(x[0]==xObst[i]+1 && y[0]==yObst[i] && headDir == -1) // comes from right
+	    return true;
+	if(y[0]==yObst[i]-1 && x[0]==xObst[i] && headDir == 2) // comes from 
+	    return true;
+	if(y[0]==yObst[i]+1 && x[0]==xObst[i] && headDir == -2) // comes from
+	    return true;
+	
+	if(x[0]==xObst[i] && y[0]==yObst[i])
+	    return true;
+    }
         
     return answ;
 }

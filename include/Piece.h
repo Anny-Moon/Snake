@@ -39,7 +39,7 @@ public:
     int rounding(double number);
     int findIntX();
     int findIntY();
-    void findCoordinates(double time, int* xObst = NULL, int* yObst = NULL, int N=0);//< arrays of odstacle coordinates
+    void findCoordinates(double time, const int* xObst = NULL, const int* yObst = NULL, int N=0);//< arrays of odstacle coordinates
     void erase() const;
     void draw() const;
 };

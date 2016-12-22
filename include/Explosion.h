@@ -30,7 +30,7 @@ public:
     ~Explosion();
     
     void setPhysics(); //< set velocities and accelerations
-    void findCoordinates(double time_in);
+    void findCoordinates(double time_in, const int* xObst, const int* yObst, int N);
         
     void erase() const;
     void draw() const;

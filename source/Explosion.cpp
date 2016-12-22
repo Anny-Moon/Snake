@@ -75,7 +75,7 @@ void Explosion::setPhysics()
 
 }
 
-void Explosion::findCoordinates(double time_in)
+void Explosion::findCoordinates(double time_in,  const int* xObst, const int* yObst, int N)
 {
     int i, j;
     time = time_in;
@@ -104,7 +104,7 @@ void Explosion::findCoordinates(double time_in)
     }
 */
     for(i=0;i<numPieces;i++)
-	piece[i].findCoordinates(time, NULL,NULL, 0);
+	piece[i].findCoordinates(time, xObst,yObst, N);
 
 //    mvprintw(25,60,"%g",velocityX[0]);
 //    mvprintw(28,60,"%g",piece[0].velocityX);

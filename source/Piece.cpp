@@ -30,7 +30,7 @@ void Piece::setBox(const Box* box_in)
 {
     box = box_in;
 }
-void Piece::findCoordinates(double time_in, int* xObst, int* yObst, int N)
+void Piece::findCoordinates(double time_in,const  int* xObst, const int* yObst, int N)
 {	
     int i;
     double tmp;
@@ -155,7 +155,7 @@ void Piece::draw() const
 //    mvprintw(40,40,"%g",velocityX);
 //    mvprintw(41,40,"%g",velocityY);
     
-    attron(COLOR_PAIR(2));
+    attron(COLOR_PAIR(3));
     mvaddch(intY, intX, pieceChar);
-    attroff(COLOR_PAIR(2));
+    attroff(COLOR_PAIR(3));
 }

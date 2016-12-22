@@ -20,7 +20,8 @@ class Gameplay
 public:
 //    static int dTime; //< time delay in msec
 
-    static void gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, Piece* piece, int ch);
+    static void gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, int ch);
+    static void gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, Box* box, Score* score, Score* score2, int ch);
 };
 
 #endif
