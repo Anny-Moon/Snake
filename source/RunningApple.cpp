@@ -49,8 +49,8 @@ void RunningApple::newRunningApple()
     x = (double)intX;
     y = (double)intY;
     
-    velocityX = ((double)rand() / (double)RAND_MAX-0.5) /80;
-    velocityY = ((double)rand() / (double)RAND_MAX-0.5) /80;
+    velocityX = ((double)rand() / (double)RAND_MAX-0.5) /20000;
+    velocityY = ((double)rand() / (double)RAND_MAX-0.5) /20000;
     
     accelerationX = 0.0;
     accelerationY = 0.0;

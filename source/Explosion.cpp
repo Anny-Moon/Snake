@@ -57,8 +57,8 @@ void Explosion::setPhysics()
     int i;
     
     for(i=0;i<numPieces;i++){
-	velocityX[i] = ((double)rand() / (double)RAND_MAX-0.5) /20;
-	velocityY[i] = ((double)rand() / (double)RAND_MAX-0.5) /20;
+	velocityX[i] = ((double)rand() / (double)RAND_MAX-0.5) /30;
+	velocityY[i] = ((double)rand() / (double)RAND_MAX-0.5) /30;
 //	velocityX[i] = 0.02;
 //	velocityY[i] = 0.01;
 	accelerationX[i] = -0.000003 * velocityX[i]/fabs(velocityX[i]);

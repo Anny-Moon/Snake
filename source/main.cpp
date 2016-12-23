@@ -78,7 +78,7 @@ int main()
     
     else{
 	Box box(50, 30 ,5,5);
-	Snake snake(5, 20, 30, 100);
+	Snake snake(5, 20, 30, 20000);
 	RunningApple apple(&box,'$');
 	apple.x = 30.0;
 	apple.y = 30.0;

@@ -13,7 +13,7 @@
 void Gameplay::printLogo(int y, int x)
 {
     attron(COLOR_PAIR(11));
-    mvprintw(y, x, "  . .   ..    _    _  .   _._");
+    mvprintw(y, x, " .. .   ..    _    _  .   _._");
     mvprintw(y+1,x,"/ / |\\  ||  / . | | |//  |  _|");
     mvprintw(y+2,x,"\\ \\ |  \\|| |  _ | |   \\  |  _");
     mvprintw(y+3,x,"/_/ |_|\\_| |_| || |_|\\_\\ |___|");
@@ -42,7 +42,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     
     attron(COLOR_PAIR(11));
     attron(A_DIM);
-    mvprintw(0,box->left,"c Anna Sinelnikova");
+    mvprintw(0,box->left,"(c) Anna Sinelnikova");
     attroff(COLOR_PAIR(11));
     attroff(A_DIM);
     
@@ -148,7 +148,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	}
 	
 	latestCh = ch;
-	napms(1);
+//	napms(1);
     }
     
 }
@@ -178,7 +178,7 @@ void Gameplay::gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, 
     
     attron(COLOR_PAIR(11));
     attron(A_DIM);
-    mvprintw(0,box->left,"c Anna Sinelnikova");
+    mvprintw(0,box->left,"(c) Anna Sinelnikova");
     attroff(COLOR_PAIR(11));
     attroff(A_DIM);
     
