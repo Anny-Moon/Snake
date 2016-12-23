@@ -10,6 +10,16 @@
 #include <ncurses.h>
 #include <time.h>
 
+void Gameplay::printLogo(int y, int x)
+{
+    attron(COLOR_PAIR(11));
+    mvprintw(y, x, "  . .   ..    _    _  .   _._");
+    mvprintw(y+1,x,"/ / |\\  ||  / . | | |//  |  _|");
+    mvprintw(y+2,x,"\\ \\ |  \\|| |  _ | |   \\  |  _");
+    mvprintw(y+3,x,"/_/ |_|\\_| |_| || |_|\\_\\ |___|");
+    attroff(COLOR_PAIR(11));
+}
+
 void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, int ch)
 {
     time_t initialTime, currentTime;
@@ -23,11 +33,19 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     
     if(ch == 'q' || ch == 'Q')
 	return;
+    printLogo(box->bottom+2,box->left+10);
     
     box->draw();
     snake->draw();
     apple->draw();
     score->draw();
+    
+    attron(COLOR_PAIR(11));
+    attron(A_DIM);
+    mvprintw(0,box->left,"c Anna Sinelnikova");
+    attroff(COLOR_PAIR(11));
+    attroff(A_DIM);
+    
     move(0, 0);// move cursor
     refresh();
     
@@ -150,13 +168,20 @@ void Gameplay::gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, 
     
     if(ch == 'q' || ch == 'Q')
 	return;
-    
+    printLogo(box->bottom+2,box->left+10);
     box->draw();
     snake->draw();
     snake2->draw();
     apple->draw();
     score->draw();
     score2->draw();
+    
+    attron(COLOR_PAIR(11));
+    attron(A_DIM);
+    mvprintw(0,box->left,"c Anna Sinelnikova");
+    attroff(COLOR_PAIR(11));
+    attroff(A_DIM);
+    
     move(0, 0);// move cursor
     refresh();
     
