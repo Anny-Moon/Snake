@@ -4,6 +4,7 @@
 Piece::Piece(double x0, double y0, double vx0, double vy0, double ax0, double ay0, const Box* box_in, double time0)
 {
     pieceChar = 'O';
+    colorScheme = 3;
     x = x0;
     y = y0;
     velocityX = vx0;
@@ -22,6 +23,7 @@ Piece::Piece(double x0, double y0, double vx0, double vy0, double ax0, double ay
 Piece::Piece()
 {
     pieceChar = 'O';
+    colorScheme = 3;
 }
 
 Piece::~Piece(){};
@@ -155,7 +157,7 @@ void Piece::draw() const
 //    mvprintw(40,40,"%g",velocityX);
 //    mvprintw(41,40,"%g",velocityY);
     
-    attron(COLOR_PAIR(3));
+    attron(COLOR_PAIR(colorScheme));
     mvaddch(intY, intX, pieceChar);
-    attroff(COLOR_PAIR(3));
+    attroff(COLOR_PAIR(colorScheme));
 }

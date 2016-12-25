@@ -22,6 +22,7 @@ public:
 
     static void printLogo(int y, int x);
     static void gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, int ch);
+    static void gameLoopWithBonus(Snake* snake, RunningApple* apple, RunningApple* bonus, Box* box, Score* score, int ch);
     static void gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, Box* box, Score* score, Score* score2, int ch);
 };
 

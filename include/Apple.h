@@ -18,7 +18,7 @@ public:
     int x;
     int y;
     
-    enum Type{normal, running};//< different bonuses
+    enum Type{normal, running, nothing};//< different bonuses
     Type type;
 
     Apple(int x_in, int y_in, char ch, Type type_in = normal);

@@ -19,9 +19,18 @@ RunningApple::RunningApple(const Box* box_in, char ch, Type type_in)
     box = box_in;
     pieceChar = ch;
     type = type_in;
+    cost = 10;
 }
 
 RunningApple::~RunningApple(){}
+
+void RunningApple::move(int intX_in, int intY_in)
+{
+    intX = intX_in;
+    intY = intY_in;
+    x = (double)intX;
+    y = (double)intY;
+}
 
 void RunningApple::newStableApple()
 {
@@ -40,7 +49,7 @@ void RunningApple::newStableApple()
 
 }
 
-void RunningApple::newRunningApple()
+void RunningApple::newRunningApple(int maxXspeed, int maxYspeed)
 {
     time = 0.0;
     
@@ -49,11 +58,26 @@ void RunningApple::newRunningApple()
     x = (double)intX;
     y = (double)intY;
     
-    velocityX = ((double)rand() / (double)RAND_MAX-0.5) /20000;
-    velocityY = ((double)rand() / (double)RAND_MAX-0.5) /20000;
+    velocityX = ((double)rand() / (double)RAND_MAX-0.5) /maxXspeed;
+    velocityY = ((double)rand() / (double)RAND_MAX-0.5) /maxYspeed;
     
     accelerationX = 0.0;
     accelerationY = 0.0;
+}
+
+void RunningApple::setAsBonus(Type type)
+{
+    switch(type){
+	case RunningApple::money:
+	    pieceChar = '$';
+	    colorScheme = 4;
+	    cost = 50;
+	break;
+	
+	default:
+	break;
+    }
+
 }
 
 bool RunningApple::eatingDetection(int xSnake, int ySnake)

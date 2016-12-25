@@ -15,7 +15,8 @@ private:
     
 public:
     char pieceChar;
-
+    int colorScheme;
+    
     double x;
     double y;
     
@@ -30,6 +31,7 @@ public:
     
     double time;
     const Box* box;
+
     
     Piece(double x0, double y0, double vx0, double vy0, double ax0 = 0.0, double ay0 = 0.0, const Box* box_in = NULL, double time0 = 0.0);
     Piece();

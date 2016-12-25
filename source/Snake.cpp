@@ -461,5 +461,7 @@ void Snake::eatApple(Apple::Type appleType)
 	case Apple::normal:
 	    changeLength(length+1);
 	    break;
+	default:
+	    break;
     }
 }

@@ -68,7 +68,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	    randomNumber = rand()%4;
 	    
 	    if(randomNumber == 0){
-		apple->newRunningApple();
+		apple->newRunningApple(20000, 20000);
 		points = 20;
 	    }
 	    
@@ -153,6 +153,173 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     
 }
 
+void Gameplay::gameLoopWithBonus(Snake* snake, RunningApple* apple, RunningApple* bonus, Box* box, Score* score, int ch)
+{
+    int appleCounter = 0;
+    int points = 10; // the first apple
+    int randomNumber, randomNumber2;
+    int latestCh = ch;
+    
+    int bonusTime = 0;
+    int bonusDtime = 10;
+    int bonusPoints = 0;
+    
+    unsigned int absoluteTime = 0;
+    bool bonusOnScreen = false;
+    
+    if(ch == 'q' || ch == 'Q')
+	return;
+    printLogo(box->bottom+2,box->left+10);
+    
+    box->draw();
+    snake->draw();
+    apple->draw();
+    score->draw();
+    
+    attron(COLOR_PAIR(11));
+    attron(A_DIM);
+    mvprintw(0,box->left,"(c) Anna Sinelnikova");
+    attroff(COLOR_PAIR(11));
+    attroff(A_DIM);
+    
+    move(0, 0);// move cursor
+    refresh();
+    
+    for(;;){
+	absoluteTime += 1;
+	
+	randomNumber2 = rand()%1000000;// for bonus
+//	mvprintw(30,70,"%i",randomNumber2);
+	if(randomNumber2 == 0 && bonusOnScreen == false)
+//	if(absoluteTime ==1)
+	{
+	    bonus->newRunningApple(7000, 7000);
+	    bonus->setAsBonus(RunningApple::money);
+	    bonus->draw();
+	    bonusOnScreen = true;
+	    bonusTime = 0;
+	    bonusPoints = bonus->cost;
+	}
+	bonusTime++;
+	    
+	if(bonusOnScreen && bonusTime < 1000000){
+	    bonus->erase();
+	    bonus->findCoordinates((double)absoluteTime, snake->x, snake->y, snake->length);
+	    if(bonus->intX == apple->intX && bonus->intY == apple->intY)//if bonus erase apple
+		apple->draw();
+	    bonus->draw();
+	    move(0, 0);
+	    refresh();
+	}
+
+	else{
+	    bonus->erase();
+	    bonus->findCoordinates((double)absoluteTime, snake->x, snake->y, snake->length);
+	    bonus->move(0,0);
+	    bonus->draw();
+	    move(0, 0);
+	    refresh();
+	}
+	
+	if(bonus->eatingDetection(snake->x[0], snake->y[0])){
+	    bonus->erase();
+	    bonus->move(0,0);
+	    bonusOnScreen = false;
+	    snake->erase();
+	    score->calculatePoints(bonusPoints);
+	    score->draw();
+	    snake->eatApple(Apple::nothing);
+	    snake->draw();
+	    move(0,0);
+	}
+	
+	if(apple->eatingDetection(snake->x[0], snake->y[0])){
+	    appleCounter++;
+	    snake->erase();
+	    apple->erase();
+	
+	    score->calculatePoints(points);
+	    
+	    snake->eatApple(Apple::normal);
+	    score->draw();
+	    snake->draw();
+
+	    randomNumber = rand()%3;
+	    
+	    if(randomNumber == 0){
+		apple->newRunningApple(20000, 20000);
+		apple->cost = 20;
+	    }
+	    
+	    else{
+		apple->newStableApple();
+	    }
+	    
+	    points = apple->cost;
+	    apple->draw();
+	    
+	    move(0, 0);// move cursor
+	    refresh();
+	}
+	
+	timeout(0);
+    	ch = getch();
+	
+	apple->erase();
+	apple->findCoordinates((double)absoluteTime, snake->x, snake->y, snake->length);
+	apple->draw();
+	move(0, 0);
+	refresh();
+	
+	if(ch == ERR)
+	    ch = latestCh;
+	
+	if(absoluteTime%snake->dTime == 0){
+	    snake->erase();
+	    snake->newCoordinates(ch);
+	    apple->draw();
+	    snake->draw();
+	    
+	    move(0, 0); // move cursor
+	    refresh();
+	}
+	
+	if(ch == 'q' || ch == 'Q')
+	    break;
+	
+	if(snake->collisionDetection(*box))
+	{
+	    beep();
+	    napms(50);
+	    apple->erase();
+	    Explosion explosion(snake->length, snake->x, snake->y, box);
+	    explosion.setPhysics();
+	    explosion.findCoordinates(0.0, NULL,NULL,0);
+	    explosion.draw();
+	    int t=0;
+	    for(;;){
+		
+		ch = getch();
+		if(ch == 'q' || ch == 'Q')
+		    break;
+		explosion.erase();
+		explosion.findCoordinates((double)t, NULL,NULL,0);
+		explosion.draw();
+		move(0,0);
+		refresh();
+		napms(1);
+		t++;
+	    }
+	    return;
+	}
+	
+	latestCh = ch;
+    }
+    
+}
+
+
+
 void Gameplay::gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, Box* box, Score* score, Score* score2, int ch)
 {
     time_t initialTime, currentTime;
@@ -233,7 +400,7 @@ void Gameplay::gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, 
 	    
 	
 	    if(randomNumber == 0){
-		apple->newRunningApple();
+		apple->newRunningApple(20000, 20000);
 		points = 20;
 	    }
 	    

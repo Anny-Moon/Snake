@@ -30,19 +30,23 @@ int main()
 //    init_color(COLOR_BLUE, 100, 0, 10);
     init_pair(1, COLOR_BLUE, COLOR_CYAN);//snake1
     init_pair(2, COLOR_RED, COLOR_YELLOW);//snake2
-    init_pair(3, COLOR_WHITE, COLOR_RED);//apples
     
+    //apples
+    init_pair(3, COLOR_WHITE, COLOR_RED);//apples
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+    
+    //text
     init_pair(10,COLOR_RED,NULL);
     init_pair(11,COLOR_CYAN,NULL);
     
     printw("Press any key to start.\nIf you want to quit press \"q\" or \"Q\" at any time");
     attron(COLOR_PAIR(10));
     attron(A_BLINK);
-    printw("\n\n\nNew!\n");
+    printw("\n\n\nLatest New!\n");
     attroff(COLOR_PAIR(10));
     attroff(A_BLINK);
     
-    printw("Press\"2\" for 2 players");
+    printw("Press\"1\" for game with bonuses");
     // Wait until the user press a key
     int ch = getch();
  
@@ -59,8 +63,18 @@ int main()
 //    Piece piece (10.0, 10.0, 0.02, 0.051, -0.000001, -0.00001, &box);
     // Start the game loop
 
-
-    if (ch == '2'){
+    if(ch == '1'){
+	Box box(50, 30 ,5,5);
+	Snake snake(5, 20, 30, 10000);
+	RunningApple apple(&box,'Q');
+	RunningApple bonus(&box,'$');
+	apple.x = 30.0;
+	apple.y = 30.0;
+	Score score(5 ,3);
+	Gameplay::gameLoopWithBonus(&snake, &apple, &bonus, &box, &score, ch);
+    }
+    
+    else if (ch == '2'){
 	Box box(60, 30 ,5,5);
 	RunningApple apple(&box,'$');
 	apple.x = 30.0;

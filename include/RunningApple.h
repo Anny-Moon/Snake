@@ -15,15 +15,17 @@ class RunningApple : public Piece
 private:
 public:
     
-    enum Type{normal};//< different bonuses
+    enum Type{normal, money};//< different bonuses
     Type type;
-
+    int cost;
+    
     RunningApple(const Box* box_in, char ch = '#', Type type_in = normal);
     ~RunningApple();
+    void move(int intX_in, int intY_in);
     
     void newStableApple();
-    void newRunningApple();
-    
+    void newRunningApple(int maxXspeed = 20000, int maxYspeed = 20000);
+    void setAsBonus(Type type);
     bool eatingDetection(int xSnake, int ySnake);
 };
 
