@@ -30,7 +30,6 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     
     int absoluteTime = 0;
     
-    
     if(ch == 'q' || ch == 'Q')
 	return;
     printLogo(box->bottom+2,box->left+10);
@@ -40,7 +39,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     apple->draw();
     score->draw();
     speed->draw();
-    
+    printLogo(box->bottom+2,box->left+10);
     attron(COLOR_PAIR(11));
     attron(A_DIM);
     mvprintw(0,box->left,"(c) Anna Sinelnikova");
@@ -51,6 +50,12 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     refresh();
     
     initialTime = time(NULL);
+    ch = getch(); // wait for pressing any key (in oder to not start imidiatly)
+    
+    if(ch == 'q' || ch == 'Q')
+	return;
+    
+    
     for(;;){
 	currentTime = time(NULL);
 	absoluteTime += 1;
@@ -64,7 +69,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	    score->calculatePoints(points);
 	    
 	    snake->eatApple(Apple::normal);
-	    if(appleCounter%1==0 && snake->dTime > 3000){
+	    if(appleCounter%10==0 && snake->dTime > 3000){
 		snake->dTime-=(int)(snake->dTime*0.25);
 		speed->points+=1;
 	    }
@@ -123,13 +128,20 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	if(snake->collisionDetection(*box))
 	{
 	    beep();
-	    napms(50);
+	    napms(100);
 	    apple->erase();
 	    Explosion explosion(snake->length, snake->x, snake->y, box);
 	    explosion.setPhysics();
 	    explosion.findCoordinates(0.0, NULL,NULL,0);
 	    explosion.draw();
 	    int t=0;
+	    
+	    attron(COLOR_PAIR(10));
+	    attron(A_BLINK);
+	    mvprintw(3, 21,"press 'q' to quite");
+	    attroff(A_BLINK);
+	    attroff(COLOR_PAIR(10));
+	    
 	    for(;;){
 		
 		ch = getch();

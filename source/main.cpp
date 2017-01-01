@@ -39,14 +39,21 @@ int main()
     init_pair(10,COLOR_RED,NULL);
     init_pair(11,COLOR_CYAN,NULL);
     
-    printw("Press any key to start.\nIf you want to quit press \"q\" or \"Q\" at any time");
-    attron(COLOR_PAIR(10));
-    attron(A_BLINK);
-    printw("\n\n\nLatest New!\n");
-    attroff(COLOR_PAIR(10));
-    attroff(A_BLINK);
     
-    printw("Press\"1\" for game with bonuses");
+    attron(COLOR_PAIR(11));
+    attron(A_DIM);
+    mvprintw(1, 2,"Game");
+    attroff(COLOR_PAIR(11));
+    attroff(A_DIM);
+    Gameplay::printLogo(2 ,3);
+    attron(COLOR_PAIR(11));
+    attron(A_DIM);
+    mvprintw(7, 15,"by Anna Sinelnikova");
+    attroff(COLOR_PAIR(11));
+    attroff(A_DIM);
+    mvprintw(10, 2, "Press any key to start.");
+    mvprintw(11, 2, "When you want to quit press 'q' or 'Q'.");
+    move(0,0);
     // Wait until the user press a key
     int ch = getch();
  
@@ -56,17 +63,19 @@ int main()
     // Create all objects for game
     Box box(50, 30 ,5,5);
     Snake snake(5, 20, 30, 20000);
-    RunningApple apple(&box,'$');
+    RunningApple apple(&box,'Q');
     apple.x = 30.0;
+    apple.intX = 30;
     apple.y = 30.0;
-    Score score(5 ,3);
-    Speed speed(35,3);
+    apple.intY = 30;
+    Score score(6 ,3);
+    Speed speed(46 ,3);
     
     // Starting Game loop
     Gameplay::gameLoop(&snake, &apple, &box, &score, &speed, ch);
 
     // Clear ncurses data structures (don't remove thus!)
     endwin();
-    printf("Fin!\n");
+    printf("It was a good game!\n");
     return 0;
 }
