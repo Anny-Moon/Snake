@@ -11,6 +11,7 @@
 #include "RunningApple.h"
 #include "Box.h"
 #include "Score.h"
+#include "Speed.h"
 #include "Piece.h"
 
 
@@ -21,9 +22,14 @@ public:
 //    static int dTime; //< time delay in msec
 
     static void printLogo(int y, int x);
-    static void gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, int ch);
+    static void gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, Speed* speed, int ch);
+/*   
+    //in version v3.0
     static void gameLoopWithBonus(Snake* snake, RunningApple* apple, RunningApple* bonus, Box* box, Score* score, int ch);
+    
+    //in version v2.0
     static void gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, Box* box, Score* score, Score* score2, int ch);
+*/
 };
 
 #endif

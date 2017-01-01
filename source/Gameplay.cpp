@@ -20,7 +20,7 @@ void Gameplay::printLogo(int y, int x)
     attroff(COLOR_PAIR(11));
 }
 
-void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, int ch)
+void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, Speed* speed, int ch)
 {
     time_t initialTime, currentTime;
     int appleCounter = 0;
@@ -39,6 +39,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     snake->draw();
     apple->draw();
     score->draw();
+    speed->draw();
     
     attron(COLOR_PAIR(11));
     attron(A_DIM);
@@ -53,6 +54,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     for(;;){
 	currentTime = time(NULL);
 	absoluteTime += 1;
+//	mvprintw(40,35,"%d", absoluteTime);
 	
 	if(apple->eatingDetection(snake->x[0], snake->y[0])){
 	    appleCounter++;
@@ -62,7 +64,13 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	    score->calculatePoints(points);
 	    
 	    snake->eatApple(Apple::normal);
+	    if(appleCounter%1==0 && snake->dTime > 3000){
+		snake->dTime-=(int)(snake->dTime*0.25);
+		speed->points+=1;
+	    }
+		
 	    score->draw();
+	    speed->draw();
 	    snake->draw();
 
 	    randomNumber = rand()%4;
@@ -152,7 +160,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
     }
     
 }
-
+/*
 void Gameplay::gameLoopWithBonus(Snake* snake, RunningApple* apple, RunningApple* bonus, Box* box, Score* score, int ch)
 {
     int appleCounter = 0;
@@ -524,3 +532,4 @@ void Gameplay::gameLoopForTwo(Snake* snake, Snake* snake2, RunningApple* apple, 
     }
 
 }
+*/

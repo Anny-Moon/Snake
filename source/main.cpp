@@ -9,6 +9,7 @@
 #include "../include/RunningApple.h"
 #include "../include/Box.h"
 #include "../include/Score.h"
+#include "../include/Speed.h"
 #include "../include/Gameplay.h"
 #include "../include/Piece.h"
 #include "../include/Explosion.h"
@@ -23,17 +24,16 @@ int main()
     noecho();
     cbreak();
     keypad(stdscr, TRUE);
-    //beep();
     start_color(); 
     srand (time(NULL));
-    
-//    init_color(COLOR_BLUE, 100, 0, 10);
+
+    // snakes
     init_pair(1, COLOR_BLUE, COLOR_CYAN);//snake1
-    init_pair(2, COLOR_RED, COLOR_YELLOW);//snake2
+    init_pair(2, COLOR_RED, COLOR_YELLOW);//snake2 (if allowed)
     
     //apples
     init_pair(3, COLOR_WHITE, COLOR_RED);//apples
-    init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK);//bonus (if allowed)
     
     //text
     init_pair(10,COLOR_RED,NULL);
@@ -52,54 +52,20 @@ int main()
  
     // Clear the screen
     clear();
-//    Box box(50, 30 ,5,6);
-//    Snake snake(5, 20, 30, 100);
-//    RunningApple apple(&box,'$');
-//    apple.x = 30.0;
-//    apple.y = 30.0;
 
-//    Score score(5 ,3);
+    // Create all objects for game
+    Box box(50, 30 ,5,5);
+    Snake snake(5, 20, 30, 20000);
+    RunningApple apple(&box,'$');
+    apple.x = 30.0;
+    apple.y = 30.0;
+    Score score(5 ,3);
+    Speed speed(35,3);
     
-//    Piece piece (10.0, 10.0, 0.02, 0.051, -0.000001, -0.00001, &box);
-    // Start the game loop
+    // Starting Game loop
+    Gameplay::gameLoop(&snake, &apple, &box, &score, &speed, ch);
 
-    if(ch == '1'){
-	Box box(50, 30 ,5,5);
-	Snake snake(5, 20, 30, 10000);
-	RunningApple apple(&box,'Q');
-	RunningApple bonus(&box,'$');
-	apple.x = 30.0;
-	apple.y = 30.0;
-	Score score(5 ,3);
-	Gameplay::gameLoopWithBonus(&snake, &apple, &bonus, &box, &score, ch);
-    }
-    
-    else if (ch == '2'){
-	Box box(60, 30 ,5,5);
-	RunningApple apple(&box,'$');
-	apple.x = 30.0;
-	apple.y = 30.0;
-	
-	Snake snake(5, 20, 30, 100);
-	Snake snake2(5, 20, 10, 100);
-	snake2.keyboardMode = 2;
-	snake2.colorScheme = 2;
-	Score score(5 ,3);
-	Score score2(30, 3);
-	
-	Gameplay::gameLoopForTwo(&snake, &snake2, &apple, &box, &score, &score2, ch);
-    }
-    
-    else{
-	Box box(50, 30 ,5,5);
-	Snake snake(5, 20, 30, 20000);
-	RunningApple apple(&box,'$');
-	apple.x = 30.0;
-	apple.y = 30.0;
-	Score score(5 ,3);
-	Gameplay::gameLoop(&snake, &apple, &box, &score, ch);
-    }
-    // Clear ncurses data structures
+    // Clear ncurses data structures (don't remove thus!)
     endwin();
     printf("Fin!\n");
     return 0;
