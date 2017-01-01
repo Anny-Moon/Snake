@@ -1,8 +1,5 @@
+# Snake
 Game or something like this
-  . .   ..    _    _  .   _._
-/ / |\  ||  / . | | |//  |  _|
-\ \ |  \|| |  _ | |   \  |  _
-/_/ |_|\_| |_| || |_|\_\ |___|
 
 ## Quick Start
 
