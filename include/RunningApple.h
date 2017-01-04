@@ -24,7 +24,7 @@ public:
     void move(int intX_in, int intY_in);
     
     void newStableApple();
-    void newRunningApple(int maxXspeed = 20000, int maxYspeed = 20000);
+    void newRunningApple(double time0, int maxXspeed = 20000, int maxYspeed = 20000);
     void setAsBonus(Type type);
     bool eatingDetection(int xSnake, int ySnake);
 };

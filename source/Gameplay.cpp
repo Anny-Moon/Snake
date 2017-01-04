@@ -81,7 +81,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	    randomNumber = rand()%2;
 	    
 	    if(randomNumber == 0){
-		apple->newRunningApple(20000, 20000);
+		apple->newRunningApple((double)absoluteTime, 20000, 20000);
 		points = 20;
 	    }
 	    

@@ -49,9 +49,9 @@ void RunningApple::newStableApple()
 
 }
 
-void RunningApple::newRunningApple(int maxXspeed, int maxYspeed)
+void RunningApple::newRunningApple(double time0, int maxXspeed, int maxYspeed)
 {
-    time = 0.0;
+    time = time0;
     
     intX = rand() % box->width + box->left;
     intY = rand() % box->height + box->top;
