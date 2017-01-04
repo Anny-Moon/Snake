@@ -41,7 +41,7 @@ int Snake::headDirection()
     // along y
     if(x[0] == x[1]){
 	//to +y
-	if(y[0] > y[1])
+	if(y[0] == y[1]+1 || y[0]+1<y[1]) // after || - for periodic boundry conditions
 	    return 2;
 	//to -y
 	else
@@ -51,10 +51,10 @@ int Snake::headDirection()
     
     // along x
     else if(y[0] == y[1]){
-	//to +x @----
-	if(x[0] > x[1])
+	//to +x ----@
+	if(x[0] == x[1]+1 || x[0]+1<x[1]) // for periodic boundry conditions
 	    return 1;
-	//to -x ----@
+	//to -x @----
 	else
 	    return -1;
     }

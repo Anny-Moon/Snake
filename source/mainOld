@@ -13,7 +13,6 @@
 #include "../include/Gameplay.h"
 #include "../include/Piece.h"
 #include "../include/Explosion.h"
-#include "../include/Level.h"
 #include <ncurses.h>
 #include <time.h>
 #include <stdlib.h>
@@ -39,7 +38,7 @@ int main()
     //text
     init_pair(10,COLOR_RED,NULL);
     init_pair(11,COLOR_CYAN,NULL);
-    init_pair(12,COLOR_BLUE,NULL);
+    
     
     attron(COLOR_PAIR(11));
     attron(A_DIM);
@@ -61,8 +60,20 @@ int main()
     // Clear the screen
     clear();
 
+    // Create all objects for game
+    Box box(50, 30 ,5,5);
+    Snake snake(5, 20, 30, 20000);
+    RunningApple apple(&box,'Q');
+    apple.x = 30.0;
+    apple.intX = 30;
+    apple.y = 30.0;
+    apple.intY = 30;
+    Score score(6 ,3);
+    Speed speed(46 ,3);
+    
     // Starting Game loop
-    Level::one(ch);
+    Gameplay::gameLoop(&snake, &apple, &box, &score, &speed, ch);
+
     // Clear ncurses data structures (don't remove thus!)
     endwin();
     printf("It was a good game!\n");

@@ -78,7 +78,7 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 	    speed->draw();
 	    snake->draw();
 
-	    randomNumber = rand()%4;
+	    randomNumber = rand()%2;
 	    
 	    if(randomNumber == 0){
 		apple->newRunningApple(20000, 20000);
@@ -90,7 +90,8 @@ void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* scor
 		points = 10;
 	    }
 	    apple->draw();
-	    
+	    mvprintw(10,60,"%d %d", apple->intX, apple->intY);
+	    mvprintw(11,60,"%g %g", apple->x,apple->y);
 	    move(0, 0);// move cursor
 	    refresh();
 	}
