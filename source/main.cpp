@@ -8,6 +8,7 @@
 #include "../include/Apple.h"
 #include "../include/RunningApple.h"
 #include "../include/Box.h"
+#include "../include/Obstacle.h"
 #include "../include/Score.h"
 #include "../include/Speed.h"
 #include "../include/Gameplay.h"
@@ -40,6 +41,7 @@ int main()
     init_pair(10,COLOR_RED,NULL);
     init_pair(11,COLOR_CYAN,NULL);
     init_pair(12,COLOR_BLUE,NULL);
+    init_pair(13,COLOR_BLACK,COLOR_WHITE);
     
     attron(COLOR_PAIR(11));
     attron(A_DIM);
@@ -55,14 +57,16 @@ int main()
     mvprintw(10, 2, "Press any key to start.");
     mvprintw(11, 2, "When you want to quit press 'q' or 'Q'.");
     move(0,0);
+    
     // Wait until the user press a key
     int ch = getch();
  
+ 
     // Clear the screen
     clear();
-
+    
     // Starting Game loop
-    Level::one(ch);
+    Level::two(ch);
     // Clear ncurses data structures (don't remove thus!)
     endwin();
     printf("It was a good game!\n");

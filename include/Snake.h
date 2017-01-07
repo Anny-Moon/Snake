@@ -9,6 +9,7 @@
 
 #include "Apple.h"
 #include "Box.h"
+#include "Obstacle.h" //for collosionDetection with obstacles
 
 class Snake
 {
@@ -33,7 +34,7 @@ public:
     void draw() const;
     void newCoordinates (int arrowKey);
     bool collisionDetection(const Box& box);
-    bool collisionDetection(const int* xObst, const int* yObst, int N);//<collision with obtacles (with other snake for example);
+    bool collisionDetection(const Obstacle* obstacle, int N);//<collision with obtacles;
     int headDirection();
     int tailDirection();
     void changeLength(int newLength);

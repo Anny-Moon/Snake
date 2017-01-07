@@ -14,6 +14,7 @@ class Level
 public:
 
     static void one(int ch);
+    static void two(int ch);
 
 };
 

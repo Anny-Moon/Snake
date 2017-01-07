@@ -1,0 +1,78 @@
+/** @package Snake
+* @file Obstacle.cpp
+* @autor Anna Sinelnikova
+* @data 2016
+*/
+
+#include "../include/Obstacle.h"
+#include <ncurses.h>
+
+Obstacle::Obstacle(int width_in, int height_in, int xStart_in, int yStart_in)
+{
+    int i;
+    width = width_in;
+    height = height_in;
+    xStart = xStart_in;
+    yStart = yStart_in;
+    
+    top = yStart;
+    bottom = yStart + height - 1;
+    left = xStart;
+    right = xStart + width - 1;
+    
+    N = width*2 + height*2 - 4;
+    x = new int[N];
+    y = new int[N];
+    
+    // top row
+    for(i=0;i<width-1;i++){
+	x[i] = left;
+	y[i] = top;
+    }
+    
+    //rigth column
+    for(i=0;i<height-1;i++){
+	x[width-1] = right;
+	y[width-1] = top+i;
+    }
+    
+    // bottom row
+    for(i=0;i<width-1;i++){
+	x[width+height-2] = right-i;
+	y[width+height-2] = bottom;
+    }
+    
+    //left column
+    for(i=0;i<height-1;i++){
+	x[2*width+height-3] = left;
+	y[2*width+height-3] = bottom-i;
+    }
+}
+
+Obstacle::~Obstacle()
+{
+    delete [] x;
+    delete [] y;
+}
+
+void Obstacle::draw() const
+{
+    int i;
+    	
+    attron(COLOR_PAIR(2));
+    
+    for(i=0;i<width-1;i++)
+	mvaddch(top, left, '^');
+    
+    for(i=0;i<height-1;i++)
+	mvaddch(top+i, right, '|');
+
+    for(i=0;i<width-1;i++)
+	mvaddch(bottom, right - i, '_');
+    
+    for(i=0;i<height-1;i++)
+	mvaddch(bottom-i, left, '|');
+    
+    attroff(COLOR_PAIR(2));
+}
+

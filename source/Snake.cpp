@@ -431,27 +431,28 @@ bool Snake::collisionDetection(const Box& box)
     return answ;
 }
 
-bool Snake::collisionDetection(const int* xObst, const int* yObst, int N)
+bool Snake::collisionDetection(const Obstacle* obstacle, int N)
 {
     bool answ = false;
-    int i;
+    int i, k;
     
     int headDir=headDirection();
 
-    for(i=0;i<N;i++){
-	if(x[0]==xObst[i]-1 && y[0]==yObst[i] && headDir == 1) // comes from left
-	    return true;
-	if(x[0]==xObst[i]+1 && y[0]==yObst[i] && headDir == -1) // comes from right
-	    return true;
-	if(y[0]==yObst[i]-1 && x[0]==xObst[i] && headDir == 2) // comes from 
-	    return true;
-	if(y[0]==yObst[i]+1 && x[0]==xObst[i] && headDir == -2) // comes from
-	    return true;
+    for(k=0;k<N;k++){
+	for(i=0;i<obstacle[k].N;i++){
+	    if(x[0]==obstacle[k].x[i]-1 && y[0]==obstacle[k].y[i] && headDir == 1) // comes from left
+		return true;
+	    if(x[0]==obstacle[k].x[i]+1 && y[0]==obstacle[k].y[i] && headDir == -1) // comes from right
+		return true;
+	    if(y[0]==obstacle[k].y[i]-1 && x[0]==obstacle[k].x[i] && headDir == 2) // comes from 
+		return true;
+	    if(y[0]==obstacle[k].y[i]+1 && x[0]==obstacle[k].x[i] && headDir == -2) // comes from
+		return true;
 	
-	if(x[0]==xObst[i] && y[0]==yObst[i])
-	    return true;
+	    if(x[0]==obstacle[k].x[i] && y[0]==obstacle[k].y[i])
+		return true;
+	}
     }
-        
     return answ;
 }
 
