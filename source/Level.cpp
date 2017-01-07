@@ -179,7 +179,7 @@ void Level::two(int ch)
     Score score(6 ,3);
 //    Speed speed(46 ,3);
 
-    int j, i;
+    int j, i, tmp;
     int appleCounter = 0;
     int points = 10; // the first apple
     int randomNumber;
@@ -218,6 +218,7 @@ void Level::two(int ch)
 	absoluteTime += 1;
 //	mvprintw(40,35,"%d", absoluteTime);
 	
+	    
 	if(apple.eatingDetection(snake.x[0], snake.y[0])){
 	    appleCounter++;
 	    snake.erase();
@@ -261,6 +262,16 @@ void Level::two(int ch)
 	
 	if(ch == ERR)
 	    ch = latestCh;
+	
+	if(ch == '='){
+	    snake.dTime -=(int)(0.20*snake.dTime);
+	    ch = latestCh;
+	}
+	
+	if(ch == '-'){
+	    snake.dTime +=(int)(0.20*snake.dTime);
+	    ch = latestCh;
+	}
 	
 	if(absoluteTime%snake.dTime == 0){
 	    snake.erase();

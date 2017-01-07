@@ -56,6 +56,13 @@ int main()
     attroff(A_DIM);
     mvprintw(10, 2, "Press any key to start.");
     mvprintw(11, 2, "When you want to quit press 'q' or 'Q'.");
+    
+    attron(A_BLINK);
+    attron(COLOR_PAIR(10));
+    mvprintw(13, 2, "New!");
+    attroff(A_BLINK);
+    attroff(COLOR_PAIR(10));
+    mvprintw(14, 2, "You can adjust speed now by pushing '=' or '-'.");
     move(0,0);
     
     // Wait until the user press a key
