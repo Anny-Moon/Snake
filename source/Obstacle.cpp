@@ -22,7 +22,7 @@ void Obstacle::init(int width_in, int height_in, int xStart_in, int yStart_in)
     left = xStart;
     right = xStart + width - 1;
     
-    N = width*2 + height*2;
+    N = width*height;
     x = new int[N];
     y = new int[N];
     

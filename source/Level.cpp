@@ -160,17 +160,22 @@ void Level::two(int ch)
 {
     
     // Create all objects for game
+    int numObst = 4;
     Obstacle* obstacle;
-    obstacle = new Obstacle [1];
-    obstacle[0].init(3,4,15,15);
+    obstacle = new Obstacle [numObst];
+    obstacle[0].init(6,3,10,7);
+    obstacle[1].init(6,3,29,7);
+    obstacle[2].init(6,3,10,20);
+    obstacle[3].init(6,3,29,20);
+    
     
     Box box(35, 20 ,5,5);
-    Snake snake(5, 10, 10, 10000);
-    RunningApple apple(&box,'Q');
+    Snake snake(5, 10, 15, 10000);
+    RunningApple apple(&box,'Q',RunningApple::normal,obstacle,numObst);
     apple.x = 15.0;
     apple.intX = 15;
-    apple.y = 10.0;
-    apple.intY = 10;
+    apple.y = 15.0;
+    apple.intY = 15;
     Score score(6 ,3);
 //    Speed speed(46 ,3);
 
@@ -189,7 +194,8 @@ void Level::two(int ch)
     box.draw();
     attroff(COLOR_PAIR(12));
     
-    obstacle[0].draw();
+    for(int k=0;k<numObst;k++)
+	obstacle[k].draw();
     snake.draw();
     apple.draw();
     score.draw();
@@ -285,7 +291,7 @@ void Level::two(int ch)
 	
 	_QUITE(ch);
 		
-	if(snake.collisionDetection(box) || snake.collisionDetection(obstacle, 1)){
+	if(snake.collisionDetection(box) || snake.collisionDetection(obstacle, numObst)){
 	    apple.erase();
 	    Gameplay::gameover(&snake, &box);
 	

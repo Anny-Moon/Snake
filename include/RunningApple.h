@@ -8,6 +8,7 @@
 #define ANNA_RUNNING_APPLE
 
 #include "Box.h"
+#include "Obstacle.h"
 #include "Piece.h"
 
 class RunningApple : public Piece
@@ -19,7 +20,7 @@ public:
     Type type;
     int cost;
     
-    RunningApple(const Box* box_in, char ch = '#', Type type_in = normal);
+    RunningApple(const Box* box_in, char ch = '#', Type type_in = normal, const Obstacle *obst = NULL, int numObst = 0);
     ~RunningApple();
     void move(int intX_in, int intY_in);
     

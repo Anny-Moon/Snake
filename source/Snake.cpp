@@ -436,19 +436,8 @@ bool Snake::collisionDetection(const Obstacle* obstacle, int N)
     bool answ = false;
     int i, k;
     
-    int headDir=headDirection();
-
     for(k=0;k<N;k++){
 	for(i=0;i<obstacle[k].N;i++){
-	    if(x[0]==obstacle[k].x[i]-1 && y[0]==obstacle[k].y[i] && headDir == 1) // comes from left
-		return true;
-	    if(x[0]==obstacle[k].x[i]+1 && y[0]==obstacle[k].y[i] && headDir == -1) // comes from right
-		return true;
-	    if(y[0]==obstacle[k].y[i]-1 && x[0]==obstacle[k].x[i] && headDir == 2) // comes from 
-		return true;
-	    if(y[0]==obstacle[k].y[i]+1 && x[0]==obstacle[k].x[i] && headDir == -2) // comes from
-		return true;
-	
 	    if(x[0]==obstacle[k].x[i] && y[0]==obstacle[k].y[i])
 		return true;
 	}

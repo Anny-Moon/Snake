@@ -34,7 +34,7 @@ void Piece::setBox(const Box* box_in)
 }
 void Piece::findCoordinates(double time_in,const  int* xObst, const int* yObst, int N)
 {	
-    int i;
+    int i, k;
     double tmp;
     double dt = time_in-time;
     time = time_in;
@@ -72,52 +72,86 @@ void Piece::findCoordinates(double time_in,const  int* xObst, const int* yObst, 
     intX = findIntX();
     intY = findIntY();
 
-    if(xObst!=NULL){ // collisions with obstacle
+    if(xObst!=NULL){ // collisions with snake
 	for(i=0;i<N;i++){
-		
-		if(intX == xObst[i]-1 && intY == yObst[i] && velocityX > 0){ // left->right - along x axis
-		    x = (double)intX;
-		//    y = (double)intY;
-		    velocityX = -velocityX;
-		    accelerationX = -accelerationX;
-		    x = x + velocityX * dt;
-		    break;
-		}
-		
-		if(intX == xObst[i]+1 && intY == yObst[i] && velocityX < 0){ // right->left - along x axis
-		    x = (double)intX;
-		//    y = (double)intY;
-		    velocityX = -velocityX;
-		    accelerationX = -accelerationX;
-		    x = x + velocityX * dt;
-		    break;
-		}
-		
-		if(intY == yObst[i]-1 && intX == xObst[i] && velocityY > 0){ // top->bottom - along y axis
-		//    x = (double)intX;
-		    y = (double)intY;
-		    velocityY = -velocityY;
-		    accelerationY = -accelerationY;
-		    y = y + velocityY * dt;
-		    break;
-		}
-		
-		if(intY == yObst[i]+1 && intX == xObst[i] && velocityY < 0){ // bottom->top - along y axis
-		//    x = (double)intX;
-		    y = (double)intY;
-		    velocityY = -velocityY;
-		    accelerationY = -accelerationY;
-		    y = y + velocityY * dt;
-		    break;
-		}
 	
-	}
+	    if(intX == xObst[i]-1 && intY == yObst[i] && velocityX > 0){ // left->right - along x axis
+		x = (double)intX;
+		velocityX = -velocityX;
+		accelerationX = -accelerationX;
+		x = x + velocityX * dt;
+		break;
+	    }
+	
+	    if(intX == xObst[i]+1 && intY == yObst[i] && velocityX < 0){ // right->left - along x axis
+		x = (double)intX;
+		velocityX = -velocityX;
+		accelerationX = -accelerationX;
+		x = x + velocityX * dt;
+		break;
+	    }
+	
+	    if(intY == yObst[i]-1 && intX == xObst[i] && velocityY > 0){ // top->bottom - along y axis
+		y = (double)intY;
+		velocityY = -velocityY;
+		accelerationY = -accelerationY;
+		y = y + velocityY * dt;
+		break;
+	    }
+	
+	    if(intY == yObst[i]+1 && intX == xObst[i] && velocityY < 0){ // bottom->top - along y axis
+		y = (double)intY;
+		velocityY = -velocityY;
+		accelerationY = -accelerationY;
+		y = y + velocityY * dt;
+		break;
+	    }
     
+    }
 	intX = findIntX();
 	intY = findIntY();
     }
     
-    
+    if(obstacle != NULL){ // collisions with obstacle
+	for(k=0;k<numObstacles;k++){
+	    for(i=0;i<obstacle[k].N;i++){
+		    if(intX == obstacle[k].x[i]-1 && intY == obstacle[k].y[i] && velocityX > 0){ // left->right - along x axis
+			x = (double)intX;
+			velocityX = -velocityX;
+			accelerationX = -accelerationX;
+			x = x + velocityX * dt;
+			break;
+		    }
+		
+		    if(intX == obstacle[k].x[i]+1 && intY == obstacle[k].y[i] && velocityX < 0){ // right->left - along x axis
+			x = (double)intX;
+			velocityX = -velocityX;
+			accelerationX = -accelerationX;
+			x = x + velocityX * dt;
+			break;
+		    }
+		
+		    if(intY == obstacle[k].y[i]-1 && intX == obstacle[k].x[i] && velocityY > 0){ // top->bottom - along y axis
+			y = (double)intY;
+			velocityY = -velocityY;
+			accelerationY = -accelerationY;
+			y = y + velocityY * dt;
+		    break;
+		}
+		
+		    if(intY == obstacle[k].y[i]+1 && intX == obstacle[k].x[i] && velocityY < 0){ // bottom->top - along y axis
+			y = (double)intY;
+			velocityY = -velocityY;
+			accelerationY = -accelerationY;
+			y = y + velocityY * dt;
+			break;
+		    }
+	
+	    }
+	}
+	intX = findIntX();
+	intY = findIntY();
+    }
 }
 
 int Piece::rounding(double number)
