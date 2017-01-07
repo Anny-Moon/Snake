@@ -22,6 +22,7 @@ public:
 //    static int dTime; //< time delay in msec
 
     static void printLogo(int y, int x);
+    static void gameover(const Snake* snake, const Box* box);
     static void gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, Speed* speed, int ch);
 /*   
     //in version v3.0

@@ -143,36 +143,10 @@ void Level::one(int ch)
 	
 	_QUITE(ch);
 		
-	if(snake.collisionDetection(box))
-	{
-	    beep();
-	    napms(100);
-	    apple.erase();
-	    Explosion explosion(snake.length, snake.x, snake.y, &box);
-	    explosion.setPhysics();
-	    explosion.findCoordinates(0.0, NULL,NULL,0);
-	    explosion.draw();
-	    int t=0;
-	    
-	    attron(COLOR_PAIR(10));
-	    attron(A_BLINK);
-	    mvprintw(3, 21,"press 'q' to quite");
-	    attroff(A_BLINK);
-	    attroff(COLOR_PAIR(10));
-	    
-	    for(;;){
-		
-		ch = getch();
-		if(ch == 'q' || ch == 'Q')
-		    break;
-		explosion.erase();
-		explosion.findCoordinates((double)t, NULL,NULL,0);
-		explosion.draw();
-		move(0,0);
-		refresh();
-		napms(1);
-		t++;
-	    }
+	if(snake.collisionDetection(box)){
+	    apple.erase;
+	    Gameplay::gameover(&snake, &box);
+	
 	    return;
 	}
 	

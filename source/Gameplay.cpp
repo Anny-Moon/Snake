@@ -20,6 +20,38 @@ void Gameplay::printLogo(int y, int x)
     attroff(COLOR_PAIR(11));
 }
 
+void Gameplay::gameover(const Snake* snake, const Box* box)
+{
+    int t, ch;
+    beep();
+    napms(100);
+    Explosion explosion(snake->length, snake->x, snake->y, box);
+    explosion.setPhysics();
+    explosion.findCoordinates(0.0, NULL,NULL,0);
+    explosion.draw();
+    t=0;
+	    
+    attron(COLOR_PAIR(10));
+    attron(A_BLINK);
+    mvprintw(3, 21,"press 'q' to quite");
+    attroff(A_BLINK);
+    attroff(COLOR_PAIR(10));
+	    
+    for(;;){
+
+	ch = getch();
+	if(ch == 'q' || ch == 'Q')
+	    break;
+	explosion.erase();
+	explosion.findCoordinates((double)t, NULL,NULL,0);
+	explosion.draw();
+	move(0,0);
+	refresh();
+	napms(1);
+	t++;
+    }
+}
+
 void Gameplay::gameLoop(Snake* snake, RunningApple* apple, Box* box, Score* score, Speed* speed, int ch)
 {
     time_t initialTime, currentTime;
