@@ -63,7 +63,7 @@ int main()
     attroff(A_BLINK);
     attroff(COLOR_PAIR(10));
     mvprintw(14, 2, "You can adjust speed now by pushing '=' or '-'.");
-    mvprintw(15, 2, "Choose the level '2' or '3'.");
+    mvprintw(15, 2, "Choose the level '1', '2' or '3'.");
     move(0,0);
     
     // Wait until the user press a key
@@ -74,12 +74,17 @@ int main()
     clear();
     
     // Starting Game loop
-    if(ch == '2')
+    if(ch == '1')
+	Level::one(ch);
+	
+    else if(ch == '2')
 	Level::two(ch);
-    if(ch == '3')
+	
+    else if(ch == '3')
 	Level::three(ch);
+	
     else
-	Level::three(ch);
+	Level::zero(ch);
     // Clear ncurses data structures (don't remove thus!)
     endwin();
     printf("It was a good game!\n");

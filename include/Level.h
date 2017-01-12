@@ -12,7 +12,8 @@
 class Level
 {
 public:
-
+    
+    static void zero(int ch); //< classical
     static void one(int ch);
     static void two(int ch);
     static void three(int ch);

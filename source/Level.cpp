@@ -20,6 +20,137 @@
 #include <time.h>
 
 #define _QUITE(ch) if(ch == 'q' || ch == 'Q') return;
+#define ADJUST_SPEED\
+	if(ch == '='){\
+	    snake.dTime -=(int)(0.20*snake.dTime);\
+	    ch = latestCh;\
+	}\
+	if(ch == '-'){\
+	    snake.dTime +=(int)(0.20*snake.dTime);\
+	    ch = latestCh;\
+	}
+
+void Level::zero(int ch)
+{
+    
+    // Create all objects for game
+    Box box(50, 30 ,5,5);
+    Snake snake(5, 20, 30, 20000);
+    RunningApple apple(&box,'Q');
+    apple.x = 30.0;
+    apple.intX = 30;
+    apple.y = 30.0;
+    apple.intY = 30;
+    Score score(6 ,3);
+    Speed speed(46 ,3);
+    
+    time_t initialTime, currentTime;
+    int appleCounter = 0;
+    int points = 10; // the first apple
+    int randomNumber;
+    int latestCh = ch;
+    
+    int absoluteTime = 0;
+    
+    Gameplay::printLogo(box.bottom+2,box.left+10);
+    
+    box.draw();
+    snake.draw();
+    apple.draw();
+    score.draw();
+    speed.draw();
+    attron(COLOR_PAIR(11));
+    attron(A_DIM);
+    mvprintw(0,box.left,"(c) Anna Sinelnikova");
+    attroff(COLOR_PAIR(11));
+    attroff(A_DIM);
+    
+    move(0, 0);// move cursor
+    refresh();
+    
+    initialTime = time(NULL);
+    ch = getch(); // wait for pressing any key (in oder to not start imidiatly)
+    
+    _QUITE(ch);
+    
+    for(;;){
+	currentTime = time(NULL);
+	absoluteTime += 1;
+//	mvprintw(40,35,"%d", absoluteTime);
+	
+	if(apple.eatingDetection(snake.x[0], snake.y[0])){
+	    appleCounter++;
+	    snake.erase();
+	    apple.erase();
+	
+	    score.calculatePoints(points);
+	    
+	    snake.eatApple(Apple::normal);
+	    if(appleCounter%10==0 && snake.dTime > 3000){
+		snake.dTime-=(int)(snake.dTime*0.25);
+		speed.points+=1;
+	    }
+		
+	    score.draw();
+	    speed.draw();
+	    snake.draw();
+
+	    randomNumber = rand()%2;
+	    
+	    if(randomNumber == 0){
+		apple.newRunningApple((double)absoluteTime, 20000, 20000);
+		points = 20;
+	    }
+	    
+	    else{
+		apple.newStableApple();
+		points = 10;
+	    }
+	    apple.draw();
+//	    mvprintw(10,60,"%d %d", apple.intX, apple.intY);
+//	    mvprintw(11,60,"%g %g", apple.x,apple.y);
+	    move(0, 0);// move cursor
+	    refresh();
+	}
+	
+	timeout(0);
+    	ch = getch();
+	
+	apple.erase();
+	apple.findCoordinates((double)absoluteTime, snake.x, snake.y, snake.length);
+	apple.draw();
+	move(0, 0);
+	refresh();
+	
+	if(ch == ERR)
+	    ch = latestCh;
+
+	if(absoluteTime%snake.dTime == 0){
+	    snake.erase();
+	    snake.newCoordinates(ch);
+	    //erase();
+	    //box.draw();
+	    apple.draw();
+	    snake.draw();
+	    //score.draw();
+	    
+	    move(0, 0); // move cursor
+	    refresh();
+	}
+	
+	_QUITE(ch);
+		
+	if(snake.collisionDetection(box)){
+	    apple.erase();
+	    Gameplay::gameover(&snake, &box);
+	
+	    return;
+	}
+	
+	latestCh = ch;
+    }
+    
+}
 
 void Level::one(int ch)
 {
@@ -85,7 +216,7 @@ void Level::one(int ch)
 	    randomNumber = rand()%2;
 	    
 	    if(randomNumber == 0){
-		apple.newRunningApple((double)absoluteTime, 20000, 20000);
+		apple.newRunningApple((double)absoluteTime, snake.dTime*2, snake.dTime*2);
 		points = 20;
 	    }
 	    
@@ -115,6 +246,8 @@ void Level::one(int ch)
 	if(ch == ERR)
 	    ch = latestCh;
 	
+	ADJUST_SPEED;
+		
 	if(absoluteTime%snake.dTime == 0){
 	    snake.erase();
 	    snake.newCoordinates(ch);
@@ -235,7 +368,7 @@ void Level::two(int ch)
 	    randomNumber = rand()%2;
 	    
 	    if(randomNumber == 0){
-		apple.newRunningApple((double)absoluteTime, 20000, 20000);
+		apple.newRunningApple((double)absoluteTime, snake.dTime*2, snake.dTime*2);
 		points = 20;
 	    }
 	    
@@ -265,15 +398,7 @@ void Level::two(int ch)
 	if(ch == ERR)
 	    ch = latestCh;
 	
-	if(ch == '='){
-	    snake.dTime -=(int)(0.20*snake.dTime);
-	    ch = latestCh;
-	}
-	
-	if(ch == '-'){
-	    snake.dTime +=(int)(0.20*snake.dTime);
-	    ch = latestCh;
-	}
+	ADJUST_SPEED;
 	
 	if(absoluteTime%snake.dTime == 0){
 	    snake.erase();
@@ -390,20 +515,8 @@ void Level::three(int ch)
 	    for(int k=0;k<numObst;k++)
 		obstacle[k].draw();
 
-	    randomNumber = rand()%2;
-	    
-	    if(randomNumber == 0){
-		apple.newRunningApple((double)absoluteTime, 20000, 20000);
-		points = 20;
-	    }
-	    
-	    else{
-		apple.newStableApple();
-		points = 10;
-	    }
-//	    apple.time = absoluteTime;
-//	    mvprintw(10,31,"        ");
-//	    mvprintw(10,31,"%d %d", apple.intX, apple.intY);
+	    apple.newStableApple();
+	    points = 10;
 	    
 	    apple.draw();
 	    move(0, 0);// move cursor
@@ -423,16 +536,8 @@ void Level::three(int ch)
 	if(ch == ERR)
 	    ch = latestCh;
 	
-	if(ch == '='){
-	    snake.dTime -=(int)(0.20*snake.dTime);
-	    ch = latestCh;
-	}
-	
-	if(ch == '-'){
-	    snake.dTime +=(int)(0.20*snake.dTime);
-	    ch = latestCh;
-	}
-	
+	ADJUST_SPEED;
+		
 	if(absoluteTime%snake.dTime == 0){
 	    snake.erase();
 	    snake.newCoordinates(ch);
