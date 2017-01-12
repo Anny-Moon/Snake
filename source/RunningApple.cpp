@@ -8,7 +8,7 @@
 #include <stdlib.h> // for random
 #include <ncurses.h>
 
-RunningApple::RunningApple(const Box* box_in, char ch, Type type_in)
+RunningApple::RunningApple(const Box* box_in, char ch, Type type_in, const Obstacle *obst, int numObst)
 {
     velocityX = 0.0;
     velocityY = 0.0;
@@ -17,6 +17,9 @@ RunningApple::RunningApple(const Box* box_in, char ch, Type type_in)
     time = 0.0;
     
     box = box_in;
+    obstacle = obst;
+    numObstacles = numObst;
+    
     pieceChar = ch;
     type = type_in;
     cost = 10;
@@ -34,10 +37,26 @@ void RunningApple::move(int intX_in, int intY_in)
 
 void RunningApple::newStableApple()
 {
-    time =0.0; 
+    int flag = 1;
+    time = 0.0; 
     
     intX = rand() % box->width + box->left;
     intY = rand() % box->height + box->top;
+    
+    if(obstacle!=NULL){
+	for(int k=0;k<numObstacles;k++){
+	    for(int i=0;i<obstacle[k].N;i++){
+		if(intX == obstacle[k].x[i] && intY == obstacle[k].y[i]){
+		    flag = 0;
+		    break;
+		}
+	    }
+	}
+    }
+    
+    if(flag==0)
+	this->newStableApple();
+	
     x = (double)intX;
     y = (double)intY;
     
@@ -51,10 +70,29 @@ void RunningApple::newStableApple()
 
 void RunningApple::newRunningApple(double time0, int maxXspeed, int maxYspeed)
 {
+<<<<<<< HEAD
+=======
+    int flag = 1;
+>>>>>>> developer
     time = time0;
     
     intX = rand() % box->width + box->left;
     intY = rand() % box->height + box->top;
+    
+    if(obstacle!=NULL){
+	for(int k=0;k<numObstacles;k++){
+	    for(int i=0;i<obstacle[k].N;i++){
+		if(intX == obstacle[k].x[i] && intY == obstacle[k].y[i]){
+		    flag = 0;
+		    break;
+		}
+	    }
+	}
+    }
+    
+    if(flag==0)
+	this->newRunningApple(time0, maxXspeed, maxYspeed);
+    
     x = (double)intX;
     y = (double)intY;
     

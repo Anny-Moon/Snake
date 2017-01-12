@@ -41,7 +41,7 @@ int Snake::headDirection()
     // along y
     if(x[0] == x[1]){
 	//to +y
-	if(y[0] > y[1])
+	if(y[0] == y[1]+1 || y[0]+1<y[1]) // after || - for periodic boundry conditions
 	    return 2;
 	//to -y
 	else
@@ -51,10 +51,10 @@ int Snake::headDirection()
     
     // along x
     else if(y[0] == y[1]){
-	//to +x @----
-	if(x[0] > x[1])
+	//to +x ----@
+	if(x[0] == x[1]+1 || x[0]+1<x[1]) // for periodic boundry conditions
 	    return 1;
-	//to -x ----@
+	//to -x @----
 	else
 	    return -1;
     }
@@ -431,27 +431,17 @@ bool Snake::collisionDetection(const Box& box)
     return answ;
 }
 
-bool Snake::collisionDetection(const int* xObst, const int* yObst, int N)
+bool Snake::collisionDetection(const Obstacle* obstacle, int N)
 {
     bool answ = false;
-    int i;
+    int i, k;
     
-    int headDir=headDirection();
-
-    for(i=0;i<N;i++){
-	if(x[0]==xObst[i]-1 && y[0]==yObst[i] && headDir == 1) // comes from left
-	    return true;
-	if(x[0]==xObst[i]+1 && y[0]==yObst[i] && headDir == -1) // comes from right
-	    return true;
-	if(y[0]==yObst[i]-1 && x[0]==xObst[i] && headDir == 2) // comes from 
-	    return true;
-	if(y[0]==yObst[i]+1 && x[0]==xObst[i] && headDir == -2) // comes from
-	    return true;
-	
-	if(x[0]==xObst[i] && y[0]==yObst[i])
-	    return true;
+    for(k=0;k<N;k++){
+	for(i=0;i<obstacle[k].N;i++){
+	    if(x[0]==obstacle[k].x[i] && y[0]==obstacle[k].y[i])
+		return true;
+	}
     }
-        
     return answ;
 }
 

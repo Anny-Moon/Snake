@@ -8,13 +8,11 @@
 #include "../include/Apple.h"
 #include "../include/RunningApple.h"
 #include "../include/Box.h"
-#include "../include/Obstacle.h"
 #include "../include/Score.h"
 #include "../include/Speed.h"
 #include "../include/Gameplay.h"
 #include "../include/Piece.h"
 #include "../include/Explosion.h"
-#include "../include/Level.h"
 #include <ncurses.h>
 #include <time.h>
 #include <stdlib.h>
@@ -40,8 +38,7 @@ int main()
     //text
     init_pair(10,COLOR_RED,NULL);
     init_pair(11,COLOR_CYAN,NULL);
-    init_pair(12,COLOR_BLUE,NULL);
-    init_pair(13,COLOR_BLACK,COLOR_WHITE);
+    
     
     attron(COLOR_PAIR(11));
     attron(A_DIM);
@@ -56,35 +53,27 @@ int main()
     attroff(A_DIM);
     mvprintw(10, 2, "Press any key to start.");
     mvprintw(11, 2, "When you want to quit press 'q' or 'Q'.");
-    
-    attron(A_BLINK);
-    attron(COLOR_PAIR(10));
-    mvprintw(13, 2, "New!");
-    attroff(A_BLINK);
-    attroff(COLOR_PAIR(10));
-    mvprintw(14, 2, "You can adjust speed now by pushing '=' or '-'.");
-    mvprintw(15, 2, "Choose the level '1', '2' or '3'.");
     move(0,0);
-    
     // Wait until the user press a key
     int ch = getch();
  
- 
     // Clear the screen
     clear();
+
+    // Create all objects for game
+    Box box(50, 30 ,5,5);
+    Snake snake(5, 20, 30, 20000);
+    RunningApple apple(&box,'Q');
+    apple.x = 30.0;
+    apple.intX = 30;
+    apple.y = 30.0;
+    apple.intY = 30;
+    Score score(6 ,3);
+    Speed speed(46 ,3);
     
     // Starting Game loop
-    if(ch == '1')
-	Level::one(ch);
-	
-    else if(ch == '2')
-	Level::two(ch);
-	
-    else if(ch == '3')
-	Level::three(ch);
-	
-    else
-	Level::zero(ch);
+    Gameplay::gameLoop(&snake, &apple, &box, &score, &speed, ch);
+
     // Clear ncurses data structures (don't remove thus!)
     endwin();
     printf("It was a good game!\n");

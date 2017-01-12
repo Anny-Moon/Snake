@@ -8,6 +8,7 @@
 #define ANNA_PIECE
 
 #include "Box.h"
+#include "Obstacle.h"
 
 class Piece
 {
@@ -31,13 +32,17 @@ public:
     
     double time;
     const Box* box;
-
+    
+    int numObstacles;
+    const Obstacle* obstacle; //array of obstacles
     
     Piece(double x0, double y0, double vx0, double vy0, double ax0 = 0.0, double ay0 = 0.0, const Box* box_in = NULL, double time0 = 0.0);
     Piece();
     ~Piece();
     
     void setBox(const Box* box);
+    void setObstacles(const Obstacle* obst, int numObst);
+    
     int rounding(double number);
     int findIntX();
     int findIntY();
