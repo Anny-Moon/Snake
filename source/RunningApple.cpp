@@ -70,10 +70,7 @@ void RunningApple::newStableApple()
 
 void RunningApple::newRunningApple(double time0, int maxXspeed, int maxYspeed)
 {
-<<<<<<< HEAD
-=======
     int flag = 1;
->>>>>>> developer
     time = time0;
     
     intX = rand() % box->width + box->left;

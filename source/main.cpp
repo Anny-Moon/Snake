@@ -64,6 +64,7 @@ int main()
     attroff(COLOR_PAIR(10));
     mvprintw(14, 2, "You can adjust speed now by pushing '=' or '-'.");
     mvprintw(15, 2, "Choose the level '1', '2' or '3'.");
+    mvprintw(16, 2, "Or press any button for classical game.");
     move(0,0);
     
     // Wait until the user press a key

@@ -333,7 +333,7 @@ void Level::two(int ch)
     apple.draw();
     score.draw();
 //    speed.draw();
-    Gameplay::printLogo(box.bottom+2,box.left-3);
+    Gameplay::printLogo(box.bottom+2,box.left+2);
     attron(COLOR_PAIR(11));
     attron(A_DIM);
     mvprintw(0,box.left,"(c) Anna Sinelnikova");
@@ -465,7 +465,6 @@ void Level::three(int ch)
     int j;
     int appleCounter = 0;
     int points = 10; // the first apple
-    int randomNumber;
     int latestCh = ch;
     
     int absoluteTime = 0;
@@ -483,7 +482,7 @@ void Level::three(int ch)
     apple.draw();
     score.draw();
 //    speed.draw();
-    Gameplay::printLogo(box.bottom+2,box.left-3);
+    Gameplay::printLogo(box.bottom+2,box.left+6);
     attron(COLOR_PAIR(11));
     attron(A_DIM);
     mvprintw(0,box.left,"(c) Anna Sinelnikova");
