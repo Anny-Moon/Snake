@@ -1,5 +1,5 @@
 # Snake
-Game or something like this
+Snake game in terminal.
 
 ## Quick Start
 
