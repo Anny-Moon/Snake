@@ -24,3 +24,5 @@ $ cd Snake/
 $ make
 $ ./game
 ```
+## Feedback
+I am very open to your feedback: ann.sinelnikova@gmail.com
