@@ -6,8 +6,10 @@ I made moving apples which bounce from obstacles and snake itself. I belive it b
 
 Just try it!
 <div>
-  <img src="/pictures/1_1.png" height="301" margin="25"/>
+  <img src="/pictures/1_1.png" height="301" margin="50"/>
+  &nbsp;&nbsp;
   <img src="/pictures/3.png" height="300" margin="50"/>
+  &nbsp;&nbsp;
   <img src="/pictures/End2.png" height="300" margin="50"/>
 </div>
 
