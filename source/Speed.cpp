@@ -25,7 +25,6 @@ void Speed::calculatePoints(int points_in)
 
 void Speed::draw() const
 {
-    int i;
     mvprintw(y, x, "Speed: %i",points);
 }
 

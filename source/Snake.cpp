@@ -99,7 +99,7 @@ void Snake::changeLength(int newLength)
     int tmpX[length];
     int tmpY[length];
     int tailDir = tailDirection();
-    int headDir = headDirection();
+//    int headDir = headDirection();
     
     for(i=0;i<length;i++){
 	tmpX[i] = x[i];

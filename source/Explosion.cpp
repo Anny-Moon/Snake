@@ -77,7 +77,7 @@ void Explosion::setPhysics()
 
 void Explosion::findCoordinates(double time_in,  const int* xObst, const int* yObst, int N)
 {
-    int i, j;
+    int i;
     time = time_in;
 //    mvprintw(31,60,"%g",time);
 /*    int* xOthers;

@@ -21,9 +21,11 @@ void Score::calculatePoints(const Apple& apple)
 {
     switch (apple.type){
 	case Apple::normal:
-	points += 10;
+	    points += 10;
 	break;
-    
+	default:
+	    points +=10;
+	break;
     }
 }
 
@@ -34,7 +36,6 @@ void Score::calculatePoints(int points_in)
 
 void Score::draw() const
 {
-    int i;
     mvprintw(y, x, "Score: %i",points);
 }
 

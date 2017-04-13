@@ -62,7 +62,7 @@ int main()
     mvprintw(13, 2, "New!");
     attroff(A_BLINK);
     attroff(COLOR_PAIR(10));
-    mvprintw(14, 2, "You can adjust speed now by pushing '=' or '-'.");
+    mvprintw(14, 2, "You can adjust speed(not un classical game) by pushing '=' or '-'.");
     mvprintw(15, 2, "Choose the level '1', '2' or '3'.");
     mvprintw(16, 2, "Or press any button for classical game.");
     move(0,0);
