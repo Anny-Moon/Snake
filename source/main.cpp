@@ -58,49 +58,76 @@ int main()
     init_pair(12,COLOR_BLUE,NULL);
     init_pair(13,COLOR_BLACK,COLOR_WHITE);
     
-    attron(COLOR_PAIR(11));
-    attron(A_DIM);
-    mvprintw(1, 2,"Game");
-    attroff(COLOR_PAIR(11));
-    attroff(A_DIM);
-    Gameplay::printLogo(2 ,3);
-    attron(COLOR_PAIR(11));
-    attron(A_DIM);
-    mvprintw(7, 15,"by Anna Sinelnikova");
-    attroff(COLOR_PAIR(11));
-    attroff(A_DIM);
-    mvprintw(10, 2, "Press any key to start.");
-    mvprintw(11, 2, "When you want to quit press 'q' or 'Q'.");
     
-    attron(A_BLINK);
-    attron(COLOR_PAIR(10));
-    mvprintw(13, 2, "New!");
-    attroff(A_BLINK);
-    attroff(COLOR_PAIR(10));
-    mvprintw(14, 2, "You can adjust speed(not un classical game) by pushing '=' or '-'.");
-    mvprintw(15, 2, "Choose the level '1', '2' or '3'.");
-    mvprintw(16, 2, "Or press any button for classical game.");
-    move(0,0);
+    bool exitFlag = 0;
+    int ch;
+    while(!exitFlag){
+	// Clear the screen
+	clear();
+	attron(COLOR_PAIR(11));
+	attron(A_DIM);
+	mvprintw(1, 2,"Game");
+	attroff(COLOR_PAIR(11));
+	attroff(A_DIM);
+	Gameplay::printLogo(2 ,3);
+	attron(COLOR_PAIR(11));
+	attron(A_DIM);
+	mvprintw(7, 15,"by Anna Sinelnikova");
+	attroff(COLOR_PAIR(11));
+	attroff(A_DIM);
+	mvprintw(10, 2, "Press any key to start.");
+	mvprintw(11, 2, "When you want to quit press 'q' or 'Q'.");
+	attron(A_BLINK);
+	attron(COLOR_PAIR(10));
+	mvprintw(13, 2, "New!");
+	attroff(A_BLINK);
+	attroff(COLOR_PAIR(10));
+	mvprintw(14, 2, "You can adjust speed(not un classical game) by pushing '=' or '-'.");
+	mvprintw(15, 2, "Choose the level '1', '2' or '3'.");
+	mvprintw(16, 2, "Or press any button for classical game.");
+	move(0,0);
     
-    // Wait until the user press a key
-    int ch = getch();
+	//Wait until the user press a key
+	timeout(-1);
+	ch = getch();
  
- 
-    // Clear the screen
-    clear();
+	// Clear the screen
+	clear();
     
-    // Starting Game loop
-    if(ch == '1')
-	Level::one(ch);
+	// Starting Game loop
+	switch(ch){
+	    case '1':
+		Level::one(ch);
+		break;
+	    case '2':
+		Level::two(ch);
+		break;
+	    case '3':
+		Level::three(ch);
+		break;
+	    case 'Q':
+	    case 'q':
+		exitFlag = 1;
+		break;
+	    default:
+		Level::zero(ch);
+		break;
+	//if(ch == '1')
+	//    Level::one(ch);
 	
-    else if(ch == '2')
-	Level::two(ch);
+	//else if(ch == '2')
+	//    Level::two(ch);
 	
-    else if(ch == '3')
-	Level::three(ch);
+	//else if(ch == '3')
+	//    Level::three(ch);
 	
-    else
-	Level::zero(ch);
+	//else if(ch == 'Q' || ch == 'q')
+	//    break;
+	
+	//else
+	//    Level::zero(ch);
+	}
+    }
     // Clear ncurses data structures (don't remove thus!)
     endwin();
     printf("It was a good game!\n");
