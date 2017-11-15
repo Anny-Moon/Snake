@@ -80,11 +80,14 @@ int main()
 	attron(A_BLINK);
 	attron(COLOR_PAIR(10));
 	mvprintw(13, 2, "New!");
+	mvprintw(13, 10, "Try level 4!");
 	attroff(A_BLINK);
 	attroff(COLOR_PAIR(10));
-	mvprintw(14, 2, "You can adjust speed(not un classical game) by pushing '=' or '-'.");
-	mvprintw(15, 2, "Choose the level '1', '2' or '3'.");
-	mvprintw(16, 2, "Or press any button for classical game.");
+	mvprintw(14, 2, "If you do not like it, press 'q' and then try again!");
+	mvprintw(16, 2, "You can adjust speed(not in classical game) by pushing '=' or '-'.");
+	mvprintw(17, 2, "Choose the level '1', '2', '3' or '4'.");
+	mvprintw(18, 2, "Or press any button for classical game.");
+	
 	move(0,0);
     
 	//Wait until the user press a key
@@ -104,6 +107,9 @@ int main()
 		break;
 	    case '3':
 		Level::three(ch);
+		break;
+	    case '4':
+		Level::four(ch);
 		break;
 	    case 'Q':
 	    case 'q':

@@ -32,6 +32,7 @@ public:
     static void one(int ch);
     static void two(int ch);
     static void three(int ch);
+    static void four(int ch);
 
 };
 
