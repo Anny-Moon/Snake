@@ -51,6 +51,49 @@ Snake::~Snake()
     delete [] y;
 }
 
+int Snake::findOptimalInitPosition(const Obstacle* obstacle, int numObstacles, const Box& box)
+{
+    int answ = 0;
+    int flag = 1;
+//    int x0 = x[0];
+//    int y0 = y[0];
+    
+    while(1){
+	flag=1;
+	
+	for(int i=0;i<length;i++){
+	    if(!Obstacle::isPixelFree(x[i], y[i], obstacle, numObstacles)){
+		flag = 0;
+		break;
+	    }
+	
+	}
+	
+	// if there is no free pixel between snake's head and obstacles
+	// 0000@
+	if(!Obstacle::isPixelFree(x[0]+1, y[0], obstacle, numObstacles))
+	    flag = 0;
+	
+	if(flag==0){
+	    if(y[0]+1<box.bottom){ //shift down
+		for(int j=0;j<length;j++)
+		    y[j]+=1;
+		answ=1;
+	    }
+	    else if(x[0]+1<box.right){ //shift right
+		for(int j=0;j<length;j++)
+		    x[j]+=1;
+		answ=1;
+	    }
+	    else 
+		return -1;
+	}
+	else //flag = 1 - did nothing
+	    return answ;
+    }
+    return answ;
+}
+
 int Snake::headDirection()
 {
     // along y
@@ -446,9 +489,9 @@ bool Snake::collisionDetection(const Box& box)
     return answ;
 }
 
-bool Snake::collisionDetection(const Obstacle* obstacle, int N)
+bool Snake::collisionDetection(const Obstacle* obstacle, int numObstacles)
 {
-    bool answ = false;
+/*    bool answ = false;
     int i, k;
     
     for(k=0;k<N;k++){
@@ -458,6 +501,10 @@ bool Snake::collisionDetection(const Obstacle* obstacle, int N)
 	}
     }
     return answ;
+*/
+    if(!Obstacle::isPixelFree(x[0], y[0], obstacle, numObstacles))
+	return true;
+    return false;
 }
 
 void Snake::eatApple(Apple::Type appleType)

@@ -614,7 +614,8 @@ void Level::four(int ch)
     }
     
     Box box(35, 20 ,5,5);
-    Snake snake(2, 10, 15, 10000);
+    Snake snake(5, 10, 15, 10000);
+    snake.findOptimalInitPosition(obstacle, numObst, box);
     RunningApple apple(&box,'Q',RunningApple::normal,obstacle,numObst);
     apple.newStableApple();
 //    apple.x = 15.0;

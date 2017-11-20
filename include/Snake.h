@@ -45,6 +45,10 @@ public:
     Snake(int length_in = 5, int xSatrt = 10, int yStart = 10, int dTime_in = 100);///@param x, y - position of head
     ~Snake();
     
+    /** at the beginning where to put the snake.
+    * 0 - didn't move; 1 - moved; -1 no place to move*/
+    int findOptimalInitPosition(const Obstacle* obstacle, int numObstacles, const Box& box);
+
     void erase() const;
     void draw() const;
     void newCoordinates (int arrowKey);

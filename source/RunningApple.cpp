@@ -59,16 +59,11 @@ void RunningApple::newStableApple()
     intY = rand() % box->height + box->top;
     
     if(obstacle!=NULL){
-	for(int k=0;k<numObstacles;k++){
-	    for(int i=0;i<obstacle[k].N;i++){
-		if(intX == obstacle[k].x[i] && intY == obstacle[k].y[i]){
-		    flag = 0;
-		    break;
-		}
-	    }
-	}
+	if(!Obstacle::isPixelFree(intX, intY, obstacle, numObstacles))
+	    flag = 0;
     }
     
+
     if(flag==0)
 	this->newStableApple();
 	

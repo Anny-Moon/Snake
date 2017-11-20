@@ -49,6 +49,27 @@ public:
     ~Obstacle();
     
     void draw() const;
+    
+    inline int getN() const;
+    inline int getX(int i) const;
+    inline int getY(int i) const;
+    
+    static bool isPixelFree(int x, int y, const Obstacle* obstacle, int numObstacles);
 };
+
+inline int Obstacle::getN() const
+{
+    return N;
+}
+
+inline int Obstacle::getX(int i) const
+{
+    return x[i];
+}
+
+inline int Obstacle::getY(int i) const
+{
+    return y[i];
+}
 
 #endif

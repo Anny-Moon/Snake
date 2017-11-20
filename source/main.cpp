@@ -136,6 +136,7 @@ int main()
     }
     // Clear ncurses data structures (don't remove thus!)
     endwin();
-    printf("It was a good game!\n");
+//    printf("It was a good game!\n");
+    printf("\t\t000SEEYOU000@\tQ\n");
     return 0;
 }

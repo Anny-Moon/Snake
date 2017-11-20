@@ -71,3 +71,13 @@ void Obstacle::draw() const
     attroff(COLOR_PAIR(13));
 }
 
+bool Obstacle::isPixelFree(int x, int y, const Obstacle* obstacle, int numObstacles)
+{
+    for(int k=0;k<numObstacles;k++){
+	for(int i=0;i<obstacle[k].getN();i++){
+	    if(x == obstacle[k].getX(i) && y == obstacle[k].getY(i))
+		return false;
+	}
+    }
+    return true;
+}
