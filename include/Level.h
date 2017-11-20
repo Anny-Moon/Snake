@@ -26,6 +26,22 @@
 
 class Level
 {
+private:
+    class Drawable{
+    public:
+	Box* box;
+	int periodicConditions;
+	Obstacle* obstacle;
+	int numObst;
+//	Snake snake;
+//	RunningApple apple;
+//	Score score;
+//	Speed speed;
+	
+	Drawable(const char* fileName);
+	~Drawable();
+	
+    };
 public:
     
     static void zero(int ch); //< classical
@@ -33,6 +49,7 @@ public:
     static void two(int ch);
     static void three(int ch);
     static void four(int ch);
+    static void levelTemplate(int ch);
 
 };
 

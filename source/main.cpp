@@ -111,6 +111,9 @@ int main()
 	    case '4':
 		Level::four(ch);
 		break;
+	    case 't':
+		Level::levelTemplate(ch);
+		break;
 	    case 'Q':
 	    case 'q':
 		exitFlag = 1;

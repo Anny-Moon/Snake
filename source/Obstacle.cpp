@@ -24,6 +24,27 @@
 
 Obstacle::Obstacle(){}
 
+Obstacle::Obstacle(const Obstacle& o)
+{
+    width = o.width;
+    height = o.height;
+    xStart = o.xStart;
+    yStart = o.yStart;
+    
+    top = o.top;
+    bottom = o.bottom;
+    left = o.left;
+    right = o.right;
+    
+    N = o.N;
+    x = new int[N];
+    y = new int[N];
+    for(int i=0;i<N;i++){
+	x[i] = o.x[i];
+	y[i] = o.y[i];
+    }
+}
+
 void Obstacle::init(int width_in, int height_in, int xStart_in, int yStart_in)
 {
     int i, j;

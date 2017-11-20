@@ -34,6 +34,12 @@
 #include <ncurses.h>
 #include <time.h>
 
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <iostream>
+#include <vector>
+
 #define _QUITE(ch) if(ch == 'q' || ch == 'Q') return;
 #define ADJUST_SPEED\
 	if(ch == '='){\
@@ -44,6 +50,62 @@
 	    snake.dTime +=(int)(0.20*snake.dTime);\
 	    ch = latestCh;\
 	}
+
+Level::Drawable::Drawable(const char* fileName)
+{
+    int width, height, xStart, yStart;
+    
+    std::ifstream fin(fileName);
+    if(!fin){
+	endwin();
+	printf("\tError: cannot open file for level construction '%s'\n", fileName);
+	exit(1);
+    }    
+    
+    std::string line;
+    std::string word;
+    
+    std::getline(fin, line); //scip first line
+    std::getline(fin, line);
+    std::stringstream sin(line);
+    sin>>width>>height>>xStart>>yStart;
+    box = new Box(width, height, xStart, yStart);
+//    mvprintw(2,30," %i %i %i %i",width, height, xStart, yStart);
+    
+    std::getline(fin, line);
+    std::stringstream sin1(line);
+    sin1>>periodicConditions;
+    
+    std::getline(fin, line); //OBSTACLE
+    
+    int count = 0;
+    if(line.compare("OBSTACLES")==0){	
+	std::vector<Obstacle> obstacleVec;
+	Obstacle *tmpObst;
+	std::getline(fin, line);
+	while(line.compare("END")!=0){
+	    std::stringstream sin(line);
+	    sin>>width>>height>>xStart>>yStart;
+//	    mvprintw(count,50,"%s ||  %i %i %i %i",line.c_str(),width, height, xStart, yStart);
+	    tmpObst = new Obstacle();
+	    tmpObst->init(width, height, xStart, yStart);
+	    obstacleVec.push_back(*tmpObst);
+	    delete tmpObst;
+	    count++;
+	    std::getline(fin, line);
+	}
+	numObst = obstacleVec.size();
+	obstacle = new Obstacle [numObst];
+	for(int i=0;i<numObst;i++)
+	    obstacle[i] = obstacleVec[i];
+    }
+
+}
+
+Level::Drawable::~Drawable(){
+    if(obstacle!=NULL)
+	delete [] obstacle;
+};
 
 void Level::zero(int ch)
 {
@@ -752,4 +814,154 @@ void Level::four(int ch)
 	latestCh = ch;
     }
     delete [] obstacle;
+}
+
+void Level::levelTemplate(int ch)
+{
+// Create all objects for game
+    
+    Obstacle* obstacle;
+//    obstacle = new Obstacle [numObst];
+//    obstacle[0].init(1,21,25,5);
+//    obstacle[1].init(41,1,5,15);
+//    Obstacle* obstacle;
+    Drawable d("levelTest.dat");
+    int numObst = d.numObst;
+//    Box box(41, 21 ,5,5);
+    obstacle = d.obstacle;
+    Snake snake(5, 10, 11, 10000);
+    snake.findOptimalInitPosition(obstacle, numObst, *d.box);
+    
+    RunningApple apple(d.box,'Q',RunningApple::normal,obstacle,numObst);
+    apple.newStableApple();
+    Score score(6 ,3);
+//    Speed speed(46 ,3);
+
+    int j;
+    int appleCounter = 0;
+    int points = 10; // the first apple
+    int latestCh = ch;
+    
+    int absoluteTime = 0;
+    
+    _QUITE(ch);
+    
+//    Gameplay::printLogo(d.box->bottom+2,d.box->left+10);
+    if(d.periodicConditions==1){
+	attron(COLOR_PAIR(12));
+	d.box->draw();
+	attroff(COLOR_PAIR(12));
+    }
+    
+    else{
+	d.box->draw();
+    }
+    
+    for(int k=0;k<numObst;k++)
+	obstacle[k].draw();
+    snake.draw();
+    apple.draw();
+    score.draw();
+//    speed.draw();
+    Gameplay::printLogo(d.box->bottom+2,d.box->left+6);
+    attron(COLOR_PAIR(11));
+    attron(A_DIM);
+    mvprintw(0,d.box->left,"(c) Anna Sinelnikova");
+    attroff(COLOR_PAIR(11));
+    attroff(A_DIM);
+    
+    move(0, 0);// move cursor
+    refresh();
+    
+    ch = getch(); // wait for pressing any key (in oder to not start imidiatly)
+    
+    _QUITE(ch);
+    
+    for(;;){
+	absoluteTime += 1;
+//	mvprintw(40,35,"%d", absoluteTime);
+	
+	    
+	if(apple.eatingDetection(snake.x[0], snake.y[0])){
+	    appleCounter++;
+	    snake.erase();
+	    apple.erase();
+	
+	    score.calculatePoints(points);
+	    
+	    snake.eatApple(Apple::normal);
+	    score.draw();
+	    snake.draw();
+	    for(int k=0;k<numObst;k++)
+		obstacle[k].draw();
+
+	    apple.newStableApple();
+	    points = 10;
+	    
+	    apple.draw();
+	    move(0, 0);// move cursor
+	    refresh();
+	}
+	
+	timeout(0);
+    	ch =getch();
+	
+	apple.erase();
+	apple.findCoordinates((double)absoluteTime, snake.x, snake.y, snake.length);
+	
+	apple.draw();
+	move(0, 0);
+	refresh();
+	
+	if(ch == ERR)
+	    ch = latestCh;
+	
+	ADJUST_SPEED;
+		
+	if(absoluteTime%snake.dTime == 0){
+	    snake.erase();
+	    snake.newCoordinates(ch);
+	    //periodic boundry conditions
+	    if(d.periodicConditions==1){
+		for(j=0;j<snake.length;j++){
+		    if(snake.x[j] == d.box->right+1)
+			snake.x[j] = d.box->left;
+		    
+		    if(snake.x[j] == d.box->left-1)
+			snake.x[j] = d.box->right;
+		
+		    if(snake.y[j] == d.box->bottom+1)
+			snake.y[j] = d.box->top;    
+		    
+		    if(snake.y[j] == d.box->top-1)
+			snake.y[j] = d.box->bottom;
+		}
+	    }
+	    //---------
+	    apple.draw();
+	    snake.draw();
+	    if(d.periodicConditions==1){
+		attron(COLOR_PAIR(12));
+		d.box->draw();
+		attroff(COLOR_PAIR(12));
+	    }
+	    else{
+		d.box->draw();
+	    }
+	    move(0, 0); // move cursor
+	    refresh();
+	}
+	
+	_QUITE(ch);
+		
+	if(snake.collisionDetection(*d.box) || snake.collisionDetection(obstacle, numObst)){
+	    apple.erase();
+	    Gameplay::gameover(&snake, d.box);
+	
+	    return;
+	}
+	
+	latestCh = ch;
+    }
+//    delete [] obstacle;
 }
