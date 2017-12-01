@@ -17,5 +17,6 @@ public:
     void draw() const;
     void erase() const;
     void newCoordinates(int arrowKey);
+    void changeMode(Mode newMode);
 
 };

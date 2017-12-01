@@ -47,3 +47,26 @@ void Cursor::newCoordinates(int arrowKey)
 	break;
     }// end of case
 }
+
+void Cursor::changeMode(Mode newMode){
+    if(newMode == mode)
+	return;
+	
+    else{
+	mode = newMode;
+	
+	switch(mode){
+	    case Mode::standBy:
+		color = 1;
+	    break;
+	    case Mode::draw:
+		color = 2;
+	    break;
+	    case Mode::erase:
+		color = 3;
+	    break;
+	    default:
+	    break;
+	}
+    }
+}

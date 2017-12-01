@@ -45,8 +45,25 @@ void Editor::start(int ch)
 	move(0, 0);
 	refresh();
 	
-	if(ch == 'q' || ch == 'Q')
+//	if(cursor.mode==Cursor::Mode::draw){
+//	    
+//	}
+	
+	if(ch == 'd'){
+	    cursor.changeMode(Cursor::Mode::draw);
+	}
+	
+	else if(ch == 'e'){
+	    cursor.changeMode(Cursor::Mode::erase);
+	}
+	
+	else if(ch == 's'){
+	    cursor.changeMode(Cursor::Mode::standBy);
+	}
+	else if (ch == 'q' || ch == 'Q')
 	    break;
 	
+	else{
+	}
     }
 }
