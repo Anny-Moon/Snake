@@ -30,6 +30,8 @@
 #include "../include/Piece.h"
 #include "../include/Explosion.h"
 #include "../include/Level.h"
+
+#include "../include/Editor/Editor.h"
 #include <ncurses.h>
 #include <time.h>
 #include <stdlib.h>
@@ -96,7 +98,7 @@ int main()
  
 	// Clear the screen
 	clear();
-    
+//Cursor cursor(5,5);
 	// Starting Game loop
 	switch(ch){
 	    case '1':
@@ -113,6 +115,10 @@ int main()
 		break;
 	    case 't':
 		Level::levelTemplate(ch);
+		break;
+	    case 'e':
+		Editor::start(ch);
+		//Editor::loop(&cursor, ch);
 		break;
 	    case 'Q':
 	    case 'q':
