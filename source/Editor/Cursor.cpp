@@ -26,7 +26,6 @@ void Cursor::erase() const
 
 void Cursor::newCoordinates(int arrowKey)
 {
-    int i;
     switch (arrowKey){
     	case KEY_LEFT:
 	    x = x - 1;

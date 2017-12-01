@@ -102,3 +102,14 @@ bool Obstacle::isPixelFree(int x, int y, const Obstacle* obstacle, int numObstac
     }
     return true;
 }
+
+bool Obstacle::isPixelFree(int x, int y, const std::vector<Obstacle>& obstacle)
+{
+    for(int k=0;k<obstacle.size();k++){
+	for(int i=0;i<obstacle[k].getN();i++){
+	    if(x == obstacle[k].getX(i) && y == obstacle[k].getY(i))
+		return false;
+	}
+    }
+    return true;
+}

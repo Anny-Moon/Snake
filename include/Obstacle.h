@@ -23,6 +23,7 @@
 #define SNAKE_OBSTACLE
 
 #include <ncurses.h>
+#include <vector>
 
 class Obstacle
 {
@@ -56,6 +57,7 @@ public:
     inline int getY(int i) const;
     
     static bool isPixelFree(int x, int y, const Obstacle* obstacle, int numObstacles);
+    static bool isPixelFree(int x, int y, const std::vector<Obstacle>& obstacle);
     
     Obstacle& operator=(const Obstacle& o){
 	if(this!=&o){
