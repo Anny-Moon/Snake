@@ -59,6 +59,8 @@ public:
     static bool isPixelFree(int x, int y, const Obstacle* obstacle, int numObstacles);
     static bool isPixelFree(int x, int y, const std::vector<Obstacle>& obstacle);
     
+    static void writeInFile(FILE* fp, const std::vector<Obstacle>& obstacle);
+    
     Obstacle& operator=(const Obstacle& o){
 	if(this!=&o){
 	    width = o.width;

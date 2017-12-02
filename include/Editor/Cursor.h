@@ -1,3 +1,4 @@
+#include "../Box.h"
 #pragma once
 
 class Cursor{
@@ -16,7 +17,7 @@ public:
     
     void draw() const;
     void erase() const;
-    void newCoordinates(int arrowKey);
+    void newCoordinates(int arrowKey, const Box& box);
     void changeMode(Mode newMode);
 
 };

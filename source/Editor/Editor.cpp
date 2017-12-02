@@ -1,40 +1,24 @@
 #include "../../include/Editor/Editor.h"
 #include "../../include/Obstacle.h"
+#include "../../include/Level.h"
 
 #include <ncurses.h>
 #include <vector>
 
 
-void Editor::loop(Cursor* cursor, int ch)
-{
-    cursor->draw();
-    ch = getch(); // wait for pressing any key (in oder to not start imidiatly)
-    if(ch == 'q' || ch == 'Q')
-	return;
-	
-    for(;;){
-	timeout(0);
-    	ch = getch();
-	
-	cursor->erase();
-	cursor->newCoordinates(ch);
-	cursor->draw();
-	move(0, 0);
-	refresh();
-	
-	if(ch == 'q' || ch == 'Q')
-	    break;
-	
-    }
-}
 
 void Editor::start(int ch)
 {
-    Cursor cursor(5,5);
+    FILE* fp;
+    bool flagPlay = false;
+    Cursor cursor(10,10);
+    Box box(25, 15 ,5,5);
     std::vector<Obstacle> obstacle;
     Obstacle* tmpObst;
     cursor.draw();
+    box.draw();
     move(0, 0);
+    
     ch = getch(); // wait for pressing any key (in oder to not start imidiatly)
     if(ch == 'q' || ch == 'Q')
 	return;
@@ -49,7 +33,7 @@ void Editor::start(int ch)
 	}
 	
 	cursor.erase();
-	cursor.newCoordinates(ch);
+	cursor.newCoordinates(ch, box);
 	cursor.draw();
 	move(0, 0);
 	refresh();
@@ -88,7 +72,23 @@ void Editor::start(int ch)
 	else if (ch == 'q' || ch == 'Q')
 	    break;
 	
+	else if (ch == 'p'){
+	    fp=fopen("level.dat","w");
+	    fprintf(fp,"generated in Level Editor\n");
+	    box.writeInFile(fp);
+	    Obstacle::writeInFile(fp, obstacle);
+	    fclose(fp);
+	    flagPlay = true;
+	    break;
+	}
+	
 	else{
 	}
+    }
+    
+    if(flagPlay){
+	timeout(-1);
+	ch = getch();
+	Level::levelTemplate(ch);
     }
 }

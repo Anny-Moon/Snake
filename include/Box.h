@@ -44,6 +44,8 @@ public:
     ~Box();
     
     void draw() const;
+    void writeInFile(FILE* fp) const;
+    
 };
 
 #endif

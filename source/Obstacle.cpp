@@ -20,6 +20,7 @@
 */
 
 #include "../include/Obstacle.h"
+#include <stdlib.h>
 #include <ncurses.h>
 
 Obstacle::Obstacle(){}
@@ -112,4 +113,19 @@ bool Obstacle::isPixelFree(int x, int y, const std::vector<Obstacle>& obstacle)
 	}
     }
     return true;
+}
+
+void Obstacle::writeInFile(FILE* fp, const std::vector<Obstacle>& obstacle)
+{
+    if(fp==NULL){
+	endwin();
+	printf("Error: problem with writing to the file.\n");
+	exit(1);
+    }
+    
+    fprintf(fp, "OBSTACLES\n");
+    for(int k=0;k<obstacle.size();k++){
+	fprintf(fp,"%i\t%i\t%i\t%i\n", obstacle[k].width,obstacle[k].height,obstacle[k].xStart,obstacle[k].yStart);
+    }
+    fprintf(fp, "END\n");
 }

@@ -825,7 +825,8 @@ void Level::levelTemplate(int ch)
 //    obstacle[0].init(1,21,25,5);
 //    obstacle[1].init(41,1,5,15);
 //    Obstacle* obstacle;
-    Drawable d("levelTest.dat");
+    //Drawable d("levelTest.dat");
+    Drawable d("level.dat");
     int numObst = d.numObst;
 //    Box box(41, 21 ,5,5);
     obstacle = d.obstacle;

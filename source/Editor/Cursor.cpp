@@ -1,4 +1,5 @@
 #include "../../include/Editor/Cursor.h"
+#include "../../include/Box.h"
 #include <ncurses.h>
 
 Cursor::Cursor(int xStart, int yStart)
@@ -24,23 +25,27 @@ void Cursor::erase() const
     mvaddch(y, x, ' ');
 }
 
-void Cursor::newCoordinates(int arrowKey)
+void Cursor::newCoordinates(int arrowKey, const Box& box)
 {
     switch (arrowKey){
     	case KEY_LEFT:
-	    x = x - 1;
+    	    if(x>box.left)
+		x = x - 1;
 	break;
 	
 	case KEY_RIGHT:
-	    x = x + 1;
+	    if(x<box.right)
+		x = x + 1;
 	break;
 	
 	case KEY_UP:
-	    y = y - 1;
+	    if(y>box.top)
+		y = y - 1;
 	break;
 	
 	case KEY_DOWN:
-	    y = y + 1;
+	    if(y<box.bottom)
+		y = y + 1;
 	break;
 	default:
 	break;

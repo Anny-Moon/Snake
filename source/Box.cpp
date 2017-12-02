@@ -20,6 +20,7 @@
 */
 
 #include "../include/Box.h"
+#include "stdlib.h"
 #include <ncurses.h>
 
 Box::Box(int width_in, int height_in, int xStart_in, int yStart_in)
@@ -54,3 +55,16 @@ void Box::draw() const
 //    attroff(COLOR_PAIR(2));
 }
 
+
+void Box::writeInFile(FILE* fp) const
+{
+    if(fp==NULL){
+	endwin();
+	printf("Error: problem with writing to the file.\n");
+	exit(1);
+    }
+    
+    fprintf(fp,"%i\t%i\t%i\t%i\n", width, height, xStart, yStart);
+    fprintf(fp,"1\n");
+
+}
