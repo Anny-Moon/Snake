@@ -23,7 +23,7 @@
 #include "stdlib.h"
 #include <ncurses.h>
 
-Box::Box(int width_in, int height_in, int xStart_in, int yStart_in)
+Box::Box(int width_in, int height_in, int xStart_in, int yStart_in, int boundryConditions_in)
 {
     width = width_in;
     height = height_in;
@@ -34,6 +34,8 @@ Box::Box(int width_in, int height_in, int xStart_in, int yStart_in)
     bottom = yStart + height - 1;
     left = xStart;
     right = xStart + width - 1;
+    
+    boundryConditions = boundryConditions_in;
 }
 
 Box::~Box(){}
@@ -42,7 +44,8 @@ void Box::draw() const
 {
     int i;
     	
-//    attron(COLOR_PAIR(2));
+    if(boundryConditions == 1)
+	attron(COLOR_PAIR(12));
     for(i=left;i<=right;i++){
 	mvaddch(top-1, i, '_');
 	mvaddch(bottom+1, i, '^');
@@ -52,7 +55,8 @@ void Box::draw() const
 	mvaddch(i, left-1, '|');
 	mvaddch(i, right+1, '|');
     }
-//    attroff(COLOR_PAIR(2));
+    if(boundryConditions == 1)
+	attroff(COLOR_PAIR(12));
 }
 
 
@@ -65,6 +69,6 @@ void Box::writeInFile(FILE* fp) const
     }
     
     fprintf(fp,"%i\t%i\t%i\t%i\n", width, height, xStart, yStart);
-    fprintf(fp,"1\n");
+    fprintf(fp,"%i\n", boundryConditions);
 
 }

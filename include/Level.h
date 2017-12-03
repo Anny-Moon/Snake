@@ -30,7 +30,6 @@ private:
     class Drawable{
     public:
 	Box* box;
-	int periodicConditions;
 	Obstacle* obstacle;
 	int numObst;
 //	Snake snake;

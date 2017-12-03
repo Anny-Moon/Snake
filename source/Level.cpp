@@ -53,7 +53,7 @@
 
 Level::Drawable::Drawable(const char* fileName)
 {
-    int width, height, xStart, yStart;
+    int width, height, xStart, yStart, boundryConditions;
     
     std::ifstream fin(fileName);
     if(!fin){
@@ -69,13 +69,14 @@ Level::Drawable::Drawable(const char* fileName)
     std::getline(fin, line);
     std::stringstream sin(line);
     sin>>width>>height>>xStart>>yStart;
-    box = new Box(width, height, xStart, yStart);
+    
 //    mvprintw(2,30," %i %i %i %i",width, height, xStart, yStart);
     
     std::getline(fin, line);
     std::stringstream sin1(line);
-    sin1>>periodicConditions;
+    sin1>>boundryConditions;
     
+    box = new Box(width, height, xStart, yStart, boundryConditions);
     std::getline(fin, line); //OBSTACLE
     
     int count = 0;
@@ -848,15 +849,7 @@ void Level::levelTemplate(int ch)
     _QUITE(ch);
     
 //    Gameplay::printLogo(d.box->bottom+2,d.box->left+10);
-    if(d.periodicConditions==1){
-	attron(COLOR_PAIR(12));
-	d.box->draw();
-	attroff(COLOR_PAIR(12));
-    }
-    
-    else{
-	d.box->draw();
-    }
+    d.box->draw();
     
     for(int k=0;k<numObst;k++)
 	obstacle[k].draw();
@@ -923,7 +916,7 @@ void Level::levelTemplate(int ch)
 	    snake.erase();
 	    snake.newCoordinates(ch);
 	    //periodic boundry conditions
-	    if(d.periodicConditions==1){
+	    if(d.box->boundryConditions==1){
 		for(j=0;j<snake.length;j++){
 		    if(snake.x[j] == d.box->right+1)
 			snake.x[j] = d.box->left;
@@ -941,14 +934,8 @@ void Level::levelTemplate(int ch)
 	    //---------
 	    apple.draw();
 	    snake.draw();
-	    if(d.periodicConditions==1){
-		attron(COLOR_PAIR(12));
-		d.box->draw();
-		attroff(COLOR_PAIR(12));
-	    }
-	    else{
-		d.box->draw();
-	    }
+	    d.box->draw();
+	    
 	    move(0, 0); // move cursor
 	    refresh();
 	}

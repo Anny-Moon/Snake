@@ -40,7 +40,9 @@ public:
     int left; //< y lefth border
     int right; // y rigth border
     
-    Box(int width_in, int height_in, int xStart_in, int yStart_in);
+    int boundryConditions; //< 0 - normal, 1 - pereodic;
+    
+    Box(int width_in, int height_in, int xStart_in, int yStart_in, int boundryConditions_in = 0);
     ~Box();
     
     void draw() const;

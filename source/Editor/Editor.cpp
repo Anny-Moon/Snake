@@ -12,7 +12,7 @@ void Editor::start(int ch)
     FILE* fp;
     bool flagPlay = false;
     Cursor cursor(10,10);
-    Box box(25, 15 ,5,5);
+    Box box(25, 15 ,5, 5, 0);
     std::vector<Obstacle> obstacle;
     Obstacle* tmpObst;
     cursor.draw();
