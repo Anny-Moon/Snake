@@ -820,7 +820,7 @@ void Level::four(int ch)
 void Level::levelTemplate(int ch)
 {
 // Create all objects for game
-    
+    clear();
     Obstacle* obstacle;
 //    obstacle = new Obstacle [numObst];
 //    obstacle[0].init(1,21,25,5);

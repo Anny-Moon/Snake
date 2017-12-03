@@ -31,21 +31,37 @@ void Cursor::newCoordinates(int arrowKey, const Box& box)
     	case KEY_LEFT:
     	    if(x>box.left)
 		x = x - 1;
+	    else{
+		if(box.boundryConditions==1)
+		    x = box.right;
+	    }
 	break;
 	
 	case KEY_RIGHT:
 	    if(x<box.right)
 		x = x + 1;
+	    else{
+		if(box.boundryConditions==1)
+		    x = box.left;
+	    }
 	break;
 	
 	case KEY_UP:
 	    if(y>box.top)
 		y = y - 1;
+	    else{
+		if(box.boundryConditions==1)
+		    y = box.bottom;
+	    }
 	break;
 	
 	case KEY_DOWN:
 	    if(y<box.bottom)
 		y = y + 1;
+	    else{
+		if(box.boundryConditions==1)
+		    y = box.top;
+	    }
 	break;
 	default:
 	break;
