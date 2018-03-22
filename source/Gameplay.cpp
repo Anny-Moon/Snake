@@ -20,7 +20,7 @@
 */
 
 #include "../include/Gameplay.h"
-#include "Explosion.h"
+#include "../include/Explosion.h"
 #include <stdlib.h> //for rand 
 #include <ncurses.h>
 #include <time.h>

@@ -55,9 +55,9 @@ int main()
     init_pair(4, COLOR_YELLOW, COLOR_BLACK);//bonus (if allowed)
     
     //text
-    init_pair(10,COLOR_RED,NULL);
-    init_pair(11,COLOR_CYAN,NULL);
-    init_pair(12,COLOR_BLUE,NULL);
+    init_pair(10,COLOR_RED,0);
+    init_pair(11,COLOR_CYAN,0);
+    init_pair(12,COLOR_BLUE,0);
     init_pair(13,COLOR_BLACK,COLOR_WHITE);
     
     
@@ -146,6 +146,6 @@ int main()
     // Clear ncurses data structures (don't remove thus!)
     endwin();
 //    printf("It was a good game!\n");
-    printf("\t\t000SEEYOU000@\tQ\n");
+    printf("\t\tThank you for the game!\n");
     return 0;
 }
