@@ -36,8 +36,41 @@
 #include <time.h>
 #include <stdlib.h>
 
+#include <string> // required for std::string
+#include <sys/types.h> // required for stat.h
+#include <sys/stat.h>
+
 int main()
-{
+{	
+    bool isDirExists=false;
+    int nError = 0;
+    mode_t nMode = 0733; // UNIX style permissions
+    //create or chech if directory exist
+    std::string user = getenv("HOME");
+    std::string myPath = user + "/Documents/git_projects/SnakeBuild/tmp";
+    printf("the dir %s\n", myPath.c_str());
+    struct stat st;
+    if(stat(myPath.c_str(),&st) == 0){
+	if(st.st_mode & S_IFDIR != 0){
+	    printf("exist\n");
+	    isDirExists = true;
+	}
+    }
+    else{
+	printf("NOT exist\n");
+	isDirExists = false;
+    }
+    
+    if(!isDirExists){
+	printf("Created dir '%s'\n", myPath.c_str());
+	nError = mkdir(myPath.c_str(), nMode);
+    }
+    
+    if (nError != 0) {
+	printf("Error:\n\tcannot create dir '%s'.\n",myPath.c_str());
+    }
+    ////////////////////////////////////
+    
     initscr();
     clear();
     noecho();
