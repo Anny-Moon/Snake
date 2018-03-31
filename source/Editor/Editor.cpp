@@ -34,11 +34,11 @@ void Editor::start(int ch)
     
     mvprintw(1,box.left+10,"'d' - for draw");
     mvprintw(2,box.left+10,"'e' - for erase");
-    mvprintw(3,box.left+10,"'s' - for stand by");
+    mvprintw(3,box.left+10,"'w' - for stand by");
     
     mvprintw(1,box.left+30,"'b' - for changing boundry conditions");
-    mvprintw(2,box.left+30,"'p' - for instant play");
-    
+    mvprintw(2,box.left+30,"'s' - to save");
+    mvprintw(3,box.left+30,"'p' - for instant play");
     move(0, 0);
 	
     for(;;){
@@ -53,7 +53,7 @@ void Editor::start(int ch)
 	    cursor.changeMode(Cursor::Mode::erase);
 	}
 	
-	else if(ch == 's'){
+	else if(ch == 'w'){
 	    cursor.changeMode(Cursor::Mode::standBy);
 	}
 	
@@ -64,6 +64,15 @@ void Editor::start(int ch)
 	
 	else if (ch == 'q' || ch == 'Q')
 	    break;
+	
+	else if (ch == 's'){
+	    levelName = PATH_TO_DIR_STR + "/level.dat";
+	    fp=fopen(levelName.c_str(),"w");
+	    fprintf(fp,"generated in Level Editor\n");
+	    box.writeInFile(fp);
+	    Obstacle::writeInFile(fp, obstacle);
+	    fclose(fp);
+	}
 	
 	else if (ch == 'p'){
 	    levelName = PATH_TO_DIR_STR + "/leve.dat";
