@@ -154,6 +154,19 @@ void Level::zero(int ch)
     
     for(;;){
 	currentTime = time(NULL);
+	
+	if(absoluteTime%snake.dTime == 0){
+	    snake.erase();
+	    snake.newCoordinates(ch);
+	    //erase();
+	    //box.draw();
+	    apple.draw();
+	    snake.draw();
+	    //score.draw();
+	    
+	    move(0, 0); // move cursor
+	    refresh();
+	}
 	absoluteTime += 1;
 //	mvprintw(40,35,"%d", absoluteTime);
 	
@@ -204,18 +217,7 @@ void Level::zero(int ch)
 	if(ch == ERR)
 	    ch = latestCh;
 
-	if(absoluteTime%snake.dTime == 0){
-	    snake.erase();
-	    snake.newCoordinates(ch);
-	    //erase();
-	    //box.draw();
-	    apple.draw();
-	    snake.draw();
-	    //score.draw();
-	    
-	    move(0, 0); // move cursor
-	    refresh();
-	}
+	
 	
 	_QUITE(ch);
 		
@@ -875,10 +877,38 @@ void Level::levelTemplate(int ch)
     _QUITE(ch);
     
     for(;;){
+    
+	if(absoluteTime%snake.dTime == 0){
+	    snake.erase();
+	    snake.newCoordinates(ch);
+	    //periodic boundry conditions
+	    if(d.box->boundryConditions==1){
+		for(j=0;j<snake.length;j++){
+		    if(snake.x[j] == d.box->right+1)
+			snake.x[j] = d.box->left;
+		    
+		    if(snake.x[j] == d.box->left-1)
+			snake.x[j] = d.box->right;
+		
+		    if(snake.y[j] == d.box->bottom+1)
+			snake.y[j] = d.box->top;    
+		    
+		    if(snake.y[j] == d.box->top-1)
+			snake.y[j] = d.box->bottom;
+		}
+	    }
+	    //---------
+	    apple.draw();
+	    snake.draw();
+	    d.box->draw();
+	    
+	    move(0, 0); // move cursor
+	    refresh();
+	}
+	
 	absoluteTime += 1;
 //	mvprintw(40,35,"%d", absoluteTime);
 	
-	    
 	if(apple.eatingDetection(snake.x[0], snake.y[0])){
 	    appleCounter++;
 	    snake.erase();
@@ -914,35 +944,6 @@ void Level::levelTemplate(int ch)
 	    ch = latestCh;
 	
 	ADJUST_SPEED;
-		
-	if(absoluteTime%snake.dTime == 0){
-	    snake.erase();
-	    snake.newCoordinates(ch);
-	    //periodic boundry conditions
-	    if(d.box->boundryConditions==1){
-		for(j=0;j<snake.length;j++){
-		    if(snake.x[j] == d.box->right+1)
-			snake.x[j] = d.box->left;
-		    
-		    if(snake.x[j] == d.box->left-1)
-			snake.x[j] = d.box->right;
-		
-		    if(snake.y[j] == d.box->bottom+1)
-			snake.y[j] = d.box->top;    
-		    
-		    if(snake.y[j] == d.box->top-1)
-			snake.y[j] = d.box->bottom;
-		}
-	    }
-	    //---------
-	    apple.draw();
-	    snake.draw();
-	    d.box->draw();
-	    
-	    move(0, 0); // move cursor
-	    refresh();
-	}
-	
 	_QUITE(ch);
 		
 	if(snake.collisionDetection(*d.box) || snake.collisionDetection(obstacle, numObst)){
