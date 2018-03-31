@@ -3,14 +3,16 @@
 
 #include "../../include/Gameplay.h"
 #include "../../include/Level.h"
+#include "../../include/Global.h"
 
 #include <ncurses.h>
 #include <vector>
-
+#include <string>
 
 
 void Editor::start(int ch)
-{
+{	
+    std::string levelName;
     FILE* fp;
     bool flagPlay = false;
     Cursor cursor(10,10);
@@ -64,7 +66,8 @@ void Editor::start(int ch)
 	    break;
 	
 	else if (ch == 'p'){
-	    fp=fopen("level.dat","w");
+	    levelName = PATH_TO_DIR_STR + "/leve.dat";
+	    fp=fopen(levelName.c_str(),"w");
 	    fprintf(fp,"generated in Level Editor\n");
 	    box.writeInFile(fp);
 	    Obstacle::writeInFile(fp, obstacle);

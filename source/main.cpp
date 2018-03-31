@@ -40,35 +40,37 @@
 #include <sys/types.h> // required for stat.h
 #include <sys/stat.h>
 
+#include "../include/Global.h"
 int main()
 {	
+    //create or chech if directory exist
     bool isDirExists=false;
     int nError = 0;
     mode_t nMode = 0733; // UNIX style permissions
-    //create or chech if directory exist
-    std::string user = getenv("HOME");
-    std::string myPath = user + "/Documents/git_projects/SnakeBuild/tmp";
-    printf("the dir %s\n", myPath.c_str());
+    
     struct stat st;
-    if(stat(myPath.c_str(),&st) == 0){
+    if(stat(PATH_TO_DIR,&st) == 0){
 	if(st.st_mode & S_IFDIR != 0){
-	    printf("exist\n");
+//	    printf("exist\n");
 	    isDirExists = true;
 	}
     }
     else{
-	printf("NOT exist\n");
+//	printf("NOT exist\n");
 	isDirExists = false;
     }
     
     if(!isDirExists){
-	printf("Created dir '%s'\n", myPath.c_str());
-	nError = mkdir(myPath.c_str(), nMode);
+	printf("I created the directory: '%s'.\n", PATH_TO_DIR);
+	printf("It will be used for the game files.\n", PATH_TO_DIR);
+	nError = mkdir(PATH_TO_DIR, nMode);
     }
     
     if (nError != 0) {
-	printf("Error:\n\tcannot create dir '%s'.\n",myPath.c_str());
+	printf("Error:\n\tcannot create dir '%s'.\n",PATH_TO_DIR);
+	exit(1);
     }
+
     ////////////////////////////////////
     
     initscr();

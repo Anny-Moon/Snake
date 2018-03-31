@@ -29,6 +29,7 @@
 #include "../include/Score.h"
 #include "../include/Speed.h"
 #include "../include/Gameplay.h"
+#include "../include/Global.h"
 
 #include <stdlib.h> // for random
 #include <ncurses.h>
@@ -827,7 +828,9 @@ void Level::levelTemplate(int ch)
 //    obstacle[1].init(41,1,5,15);
 //    Obstacle* obstacle;
     //Drawable d("levelTest.dat");
-    Drawable d("level.dat");
+    std::string levelName;
+    levelName = PATH_TO_DIR_STR + "/level.dat";
+    Drawable d(levelName.c_str());
     int numObst = d.numObst;
 //    Box box(41, 21 ,5,5);
     obstacle = d.obstacle;
