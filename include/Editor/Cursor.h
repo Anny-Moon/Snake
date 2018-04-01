@@ -19,5 +19,16 @@ public:
     void erase() const;
     void newCoordinates(int arrowKey, const Box& box);
     void changeMode(Mode newMode);
+    
+    inline void setX(int value);
+    inline void setY(int value);
 
 };
+
+inline void Cursor::setX(int value){
+    x = value;
+}
+
+inline void Cursor::setY(int value){
+    y = value;
+}

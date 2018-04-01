@@ -176,6 +176,20 @@ void Editor::start(int ch)
 	    if(box.height<10)
 		mvprintw(3, box.left, " %d x 0%d ", box.width, box.height);
 	    attroff(COLOR_PAIR(1));
+	    
+	    if(cursor.x>box.right){
+		cursor.erase();
+		cursor.setX(box.right);
+		cursor.draw();
+		move(0,0);
+	    }
+	    
+	    if(cursor.y>box.bottom){
+		cursor.erase();
+		cursor.setY(box.bottom);
+		cursor.draw();
+		move(0,0);
+	    }
 	}
 	
 	else{
