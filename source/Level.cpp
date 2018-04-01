@@ -835,7 +835,7 @@ void Level::levelTemplate(int ch)
     int numObst = d.numObst;
 //    Box box(41, 21 ,5,5);
     obstacle = d.obstacle;
-    Snake snake(5, 10, 11, 10000);
+    Snake snake(5, 10, 5, 10000);
     snake.findOptimalInitPosition(obstacle, numObst, *d.box);
     
     RunningApple apple(d.box,'Q',RunningApple::normal,obstacle,numObst);

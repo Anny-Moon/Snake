@@ -47,13 +47,19 @@ void Box::draw() const
     if(boundryConditions == 1)
 	attron(COLOR_PAIR(12));
     for(i=left;i<=right;i++){
-	mvaddch(top-1, i, '_');
-	mvaddch(bottom+1, i, '^');
+//	mvaddch(top-1, i, '_');
+//	mvaddch(bottom+1, i, '^');
+	mvaddch(top-1, i, ACS_BLOCK);
+	mvaddch(bottom+1, i, ACS_BLOCK);
+
     }
     
     for(i=top;i<=bottom;i++){
-	mvaddch(i, left-1, '|');
-	mvaddch(i, right+1, '|');
+//	mvaddch(i, left-1, '|');
+//	mvaddch(i, right+1, '|');
+	mvaddch(i, left-1, ACS_BLOCK);
+	mvaddch(i, right+1, ACS_BLOCK);
+	
     }
     if(boundryConditions == 1)
 	attroff(COLOR_PAIR(12));

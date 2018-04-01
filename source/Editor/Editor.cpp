@@ -10,6 +10,17 @@
 #include <string>
 
 void Editor::boxRescale(int ch, Box* box){
+    
+    int left = box->left;
+    
+    attron(COLOR_PAIR(3));
+    mvprintw(2, left,"box size:");
+    mvprintw(3, left, " -- x -- ");
+    move(3, left + 1);
+    
+    mvprintw(3, left+1, "%c", ch);
+    move(3, left + 2);
+    
     char a[4];
     a[0] = ch;
     int count = 1;
@@ -19,6 +30,20 @@ void Editor::boxRescale(int ch, Box* box){
 	
 	if(_IS_NUMBER(ch)){
 	    a[count] = ch;
+	    
+	    if(count<2){
+		mvprintw(3, left+1+count, "%c", ch);
+		move(3, left + 2+ count);
+    	    }
+    	    
+    	    if(count==1)
+    		move(3, left + 5+ count);
+    		
+    	    if(count>1){
+    		mvprintw(3, left+4+count, "%c", ch);
+    		move(3, left + 5 + count);
+    		
+    	    }
     	    count++;
 	}
 	
@@ -28,7 +53,7 @@ void Editor::boxRescale(int ch, Box* box){
 	    break;
 	}
     }
-    
+    attroff(COLOR_PAIR(3));
     char a0 = a[0];
     char a1 = a[1];
     char a2 = a[2];
@@ -47,13 +72,15 @@ void Editor::boxRescale(int ch, Box* box){
     width = b0*10+b1;
     height = b2*10+b3;
     
-    mvprintw(20,80,"%i", width);
-    mvprintw(22,80,"%i", height);
+//    mvprintw(20,80,"%i", width);
+//    mvprintw(22,80,"%i", height);
+    
+    if(width<10 || height < 3)
+	return;
     
     box->erase(); //erase the old box;
     box->setWidth(width);
     box->setHeight(height);
-//    box->draw();
 }
 
 void Editor::start(int ch)
@@ -61,7 +88,7 @@ void Editor::start(int ch)
     std::string levelName;
     FILE* fp;
     bool flagPlay = false;
-    Cursor cursor(10,10);
+    Cursor cursor(5,5);
     Box box(35, 15 ,5, 5, 1);
     std::vector<Obstacle> obstacle;
     Obstacle* tmpObst;
@@ -75,8 +102,13 @@ void Editor::start(int ch)
     attroff(COLOR_PAIR(11));
     attroff(A_DIM);
     
+    attron(COLOR_PAIR(1));
+    mvprintw(2, box.left,"box size:");
+    mvprintw(3, box.left, " %d x %d ", box.width, box.height);
+    attroff(COLOR_PAIR(1));
     
-    mvprintw(2,box.left,"EDIT MODE");
+    
+    mvprintw(1,box.left,"EDIT MODE");
     
     mvprintw(1,box.left+10,"'d' - for draw");
     mvprintw(2,box.left+10,"'e' - for erase");
@@ -121,7 +153,7 @@ void Editor::start(int ch)
 	}
 	
 	else if (ch == 'p'){
-	    levelName = PATH_TO_DIR_STR + "/leve.dat";
+	    levelName = PATH_TO_DIR_STR + "/level.dat";
 	    fp=fopen(levelName.c_str(),"w");
 	    fprintf(fp,"generated in Level Editor\n");
 	    box.writeInFile(fp);
@@ -137,6 +169,13 @@ void Editor::start(int ch)
 	    boxRescale(ch, &box);
 	//    box.erase();
 	    box.draw();
+	    
+	    attron(COLOR_PAIR(1));
+	    mvprintw(2, box.left,"box size:");
+	    mvprintw(3, box.left, " %d x %d ", box.width, box.height);
+	    if(box.height<10)
+		mvprintw(3, box.left, " %d x 0%d ", box.width, box.height);
+	    attroff(COLOR_PAIR(1));
 	}
 	
 	else{
