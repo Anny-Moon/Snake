@@ -9,6 +9,52 @@
 #include <vector>
 #include <string>
 
+void Editor::boxRescale(int ch, Box* box){
+    char a[4];
+    a[0] = ch;
+    int count = 1;
+    for(;;){
+	timeout(0);
+	ch = getch();
+	
+	if(_IS_NUMBER(ch)){
+	    a[count] = ch;
+    	    count++;
+	}
+	
+	_QUITE(ch);
+	
+	if(count==4){
+	    break;
+	}
+    }
+    
+    char a0 = a[0];
+    char a1 = a[1];
+    char a2 = a[2];
+    char a3 = a[3];
+    
+    char chOne = '1';
+    int one=(int)chOne;
+    
+    int b0=int(a0) - one+1;
+    int b1=int(a1) - one+1;
+    int b2=int(a2) - one+1;
+    int b3=int(a3) - one+1;
+    
+//    mvprintw(15,80,"%d, %d, %d, %d", b0, b1, b2, b3);
+    int width, height;
+    width = b0*10+b1;
+    height = b2*10+b3;
+    
+    mvprintw(20,80,"%i", width);
+    mvprintw(22,80,"%i", height);
+    
+    box->erase(); //erase the old box;
+    box->setWidth(width);
+    box->setHeight(height);
+//    box->draw();
+}
 
 void Editor::start(int ch)
 {	
@@ -22,7 +68,7 @@ void Editor::start(int ch)
     cursor.draw();
     box.draw();
     
-    Gameplay::printLogo(box.bottom+2,box.left+10);
+//    Gameplay::printLogo(box.bottom+2,box.left+10);
     attron(COLOR_PAIR(11));
     attron(A_DIM);
     mvprintw(0,box.left,"(c) Anna Sinelnikova");
@@ -83,6 +129,14 @@ void Editor::start(int ch)
 	    fclose(fp);
 	    flagPlay = true;
 	    break;
+	}
+	
+	//rescale the box
+	
+	else if(_IS_NUMBER(ch)){
+	    boxRescale(ch, &box);
+	//    box.erase();
+	    box.draw();
 	}
 	
 	else{

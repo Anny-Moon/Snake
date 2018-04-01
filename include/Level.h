@@ -24,6 +24,8 @@
 
 #include "Gameplay.h"
 
+#define _QUITE(ch) if(ch == 'q' || ch == 'Q') return;
+
 class Level
 {
 private:

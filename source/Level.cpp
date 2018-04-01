@@ -41,7 +41,6 @@
 #include <iostream>
 #include <vector>
 
-#define _QUITE(ch) if(ch == 'q' || ch == 'Q') return;
 #define ADJUST_SPEED\
 	if(ch == '='){\
 	    snake.dTime -=(int)(0.20*snake.dTime);\

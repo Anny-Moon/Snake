@@ -46,8 +46,30 @@ public:
     ~Box();
     
     void draw() const;
+    void erase() const;
     void writeInFile(FILE* fp) const;
     
+    inline void setWidth(int value);
+    inline void setHeight(int value);
+    
 };
+
+inline void Box::setWidth(int value){
+    width = value;
+    top = yStart;
+    bottom = yStart + height - 1;
+    left = xStart;
+    right = xStart + width - 1;
+    
+}
+
+inline void Box::setHeight(int value){
+    height = value;
+    top = yStart;
+    bottom = yStart + height - 1;
+    left = xStart;
+    right = xStart + width - 1;
+    
+}
 
 #endif

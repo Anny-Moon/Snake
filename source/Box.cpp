@@ -59,6 +59,21 @@ void Box::draw() const
 	attroff(COLOR_PAIR(12));
 }
 
+void Box::erase() const
+{
+    int i;
+    	
+    for(i=left;i<=right;i++){
+	mvaddch(top-1, i, ' ');
+	mvaddch(bottom+1, i, ' ');
+    }
+    
+    for(i=top;i<=bottom;i++){
+	mvaddch(i, left-1, ' ');
+	mvaddch(i, right+1, ' ');
+    }
+}
+
 
 void Box::writeInFile(FILE* fp) const
 {
