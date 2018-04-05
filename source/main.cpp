@@ -112,18 +112,23 @@ int main()
 	mvprintw(7, 15,"by Anna Sinelnikova");
 	attroff(COLOR_PAIR(11));
 	attroff(A_DIM);
-	mvprintw(10, 2, "Press any key to start.");
-	mvprintw(11, 2, "When you want to quit press 'q' or 'Q'.");
+	mvprintw(11, 2, "Whenever you want to quit the game press 'q'.");
 	attron(A_BLINK);
 	attron(COLOR_PAIR(10));
 	mvprintw(13, 2, "New!");
-	mvprintw(13, 10, "Try level 4!");
+	mvprintw(14, 5, "Level editor! press 'e'");
 	attroff(A_BLINK);
 	attroff(COLOR_PAIR(10));
-	mvprintw(14, 2, "If you do not like it, press 'q' and then try again!");
-	mvprintw(16, 2, "You can adjust speed(not in classical game) by pushing '=' or '-'.");
-	mvprintw(17, 2, "Choose the level '1', '2', '3' or '4'.");
-	mvprintw(18, 2, "Or press any button for classical game.");
+	mvprintw(16, 2, "Press 'r' for random map level.");
+	
+	mvprintw(17, 2, "Press 'l' to load the previous saved level you created in the editor.");
+	
+	mvprintw(18, 2, "Press '0' for classical game.");
+	
+	mvprintw(19, 2, "Press '1', '2' or '3' to play our prebuilt levels.");
+	
+	mvprintw(21, 2, "When you play you can pause/resume the game with 'p' button.");
+	mvprintw(22, 2, "You can adjust speed (not in classical game) by pressing '=/+' or '-'.");
 	
 	move(0,0);
     
@@ -145,10 +150,10 @@ int main()
 	    case '3':
 		Level::three(ch);
 		break;
-	    case '4':
+	    case 'r':
 		Level::four(ch);
 		break;
-	    case 't':
+	    case 'l':
 		Level::levelTemplate(ch);
 		break;
 	    case 'e':

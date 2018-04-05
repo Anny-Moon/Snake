@@ -34,6 +34,7 @@
 			attroff(A_BLINK);\
 			attroff(COLOR_PAIR(10));\
 			move(0,0);\
+			timeout(-1);\
     			ch = getch();\
     			_QUITE(ch);\
     			if(ch == 'p' || ch == 'P'){\

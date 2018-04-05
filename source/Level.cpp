@@ -727,9 +727,37 @@ void Level::four(int ch)
     _QUITE(ch);
     
     for(;;){
+    
+    
+	if(absoluteTime%snake.dTime == 0){
+	    snake.erase();
+	    snake.newCoordinates(ch);
+	    for(j=0;j<snake.length;j++){
+//periodic boundry conditions
+		if(snake.x[j] == box.right+1)
+		    snake.x[j] = box.left;
+		    
+		if(snake.x[j] == box.left-1)
+		    snake.x[j] = box.right;
+		
+		if(snake.y[j] == box.bottom+1)
+		    snake.y[j] = box.top;    
+		    
+		if(snake.y[j] == box.top-1)
+		    snake.y[j] = box.bottom;
+//--------		    
+	    }
+	    apple.draw();
+	    snake.draw();
+	    attron(COLOR_PAIR(12));
+	    box.draw();
+	    attroff(COLOR_PAIR(12));
+	    move(0, 0); // move cursor
+	    refresh();
+	}
+	
 	absoluteTime += 1;
 //	mvprintw(40,35,"%d", absoluteTime);
-	
 	    
 	if(apple.eatingDetection(snake.x[0], snake.y[0])){
 	    appleCounter++;
@@ -779,33 +807,7 @@ void Level::four(int ch)
 	
 	ADJUST_SPEED;
 	
-	if(absoluteTime%snake.dTime == 0){
-	    snake.erase();
-	    snake.newCoordinates(ch);
-	    for(j=0;j<snake.length;j++){
-//periodic boundry conditions
-		if(snake.x[j] == box.right+1)
-		    snake.x[j] = box.left;
-		    
-		if(snake.x[j] == box.left-1)
-		    snake.x[j] = box.right;
-		
-		if(snake.y[j] == box.bottom+1)
-		    snake.y[j] = box.top;    
-		    
-		if(snake.y[j] == box.top-1)
-		    snake.y[j] = box.bottom;
-//--------		    
-	    }
-	    apple.draw();
-	    snake.draw();
-	    attron(COLOR_PAIR(12));
-	    box.draw();
-	    attroff(COLOR_PAIR(12));
-	    move(0, 0); // move cursor
-	    refresh();
-	}
-	
+	_PAUSE(ch);
 	_QUITE(ch);
 		
 	if(snake.collisionDetection(box) || snake.collisionDetection(obstacle, numObst)){
