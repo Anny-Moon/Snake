@@ -149,6 +149,7 @@ void Level::zero(int ch)
     initialTime = time(NULL);
     ch = getch(); // wait for pressing any key (in oder to not start imidiatly)
     
+    
     _QUITE(ch);
     
     for(;;){
@@ -217,7 +218,7 @@ void Level::zero(int ch)
 	    ch = latestCh;
 
 	
-	
+	_PAUSE(ch);
 	_QUITE(ch);
 		
 	if(snake.collisionDetection(box)){
@@ -943,6 +944,7 @@ void Level::levelTemplate(int ch)
 	    ch = latestCh;
 	
 	ADJUST_SPEED;
+	_PAUSE(ch);
 	_QUITE(ch);
 		
 	if(snake.collisionDetection(*d.box) || snake.collisionDetection(obstacle, numObst)){

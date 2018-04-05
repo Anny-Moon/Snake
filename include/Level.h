@@ -26,6 +26,24 @@
 
 #define _QUITE(ch) if(ch == 'q' || ch == 'Q') return;
 
+#define _PAUSE(ch) if(ch == 'p' || ch == 'P'){\
+		    for(;;){\
+			attron(COLOR_PAIR(10));\
+			attron(A_BLINK);\
+			mvprintw(3, 21,"PAUSED");\
+			attroff(A_BLINK);\
+			attroff(COLOR_PAIR(10));\
+			move(0,0);\
+    			ch = getch();\
+    			_QUITE(ch);\
+    			if(ch == 'p' || ch == 'P'){\
+    			    ch = '1';\
+			    mvprintw(3, 21,"      ");\
+    			    break;\
+    			}\
+    		    }\
+    		}
+
 class Level
 {
 private:
