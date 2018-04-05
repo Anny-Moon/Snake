@@ -167,9 +167,7 @@ void Editor::start(int ch)
 	
 	else if(_IS_NUMBER(ch)){
 	    boxRescale(ch, &box);
-	//    box.erase();
-	    box.draw();
-	    
+
 	    attron(COLOR_PAIR(1));
 	    mvprintw(2, box.left,"box size:");
 	    mvprintw(3, box.left, " %d x %d ", box.width, box.height);
@@ -190,9 +188,24 @@ void Editor::start(int ch)
 		cursor.draw();
 		move(0,0);
 	    }
-	}
-	
-	else{
+	    
+	    // remove exeeded odstacles
+	    for(int k=0;k<obstacle.size();k++){
+		if(obstacle[k].right >= box.right){
+		    obstacle[k].erase();
+		    obstacle.erase(obstacle.begin()+k);
+		    k--;
+		    continue;
+		}
+		if(obstacle[k].bottom >= box.bottom){
+		    obstacle[k].erase();
+		    obstacle.erase(obstacle.begin()+k);
+		    k--;
+		    continue;
+		}
+	    }
+	    
+	    box.draw();
 	}
 	
 	for(int k=0;k<obstacle.size();k++){

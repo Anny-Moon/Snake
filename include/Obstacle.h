@@ -51,6 +51,7 @@ public:
     ~Obstacle();
     
     void draw() const;
+    void erase() const;
     
     inline int getN() const;
     inline int getX(int i) const;

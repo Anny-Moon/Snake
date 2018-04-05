@@ -93,6 +93,17 @@ void Obstacle::draw() const
     attroff(COLOR_PAIR(13));
 }
 
+void Obstacle::erase() const
+{
+    int i, j;
+//    attron(COLOR_PAIR(1));
+    for(i=0;i<height;i++){
+	for(j=0;j<width;j++)
+	    mvaddch(top+i, left+j, ' ');
+    }
+//    attroff(COLOR_PAIR(1));
+}
+
 bool Obstacle::isPixelFree(int x, int y, const Obstacle* obstacle, int numObstacles)
 {
     for(int k=0;k<numObstacles;k++){
