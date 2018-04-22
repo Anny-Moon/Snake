@@ -3,7 +3,8 @@
 
 #include "../../include/Gameplay.h"
 #include "../../include/Level.h"
-#include "../../include/Global.h"
+//#include "../../include/Global.h"
+#include "../../include/Util.h"
 
 #include <ncurses.h>
 #include <vector>

@@ -29,7 +29,8 @@
 #include "../include/Score.h"
 #include "../include/Speed.h"
 #include "../include/Gameplay.h"
-#include "../include/Global.h"
+//#include "../include/Global.h"
+#include "../include/Util.h"
 
 #include <stdlib.h> // for random
 #include <ncurses.h>
@@ -50,6 +51,7 @@
 	    snake.dTime +=(int)(0.20*snake.dTime);\
 	    ch = latestCh;\
 	}
+
 
 Level::Drawable::Drawable(const char* fileName)
 {

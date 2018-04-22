@@ -30,6 +30,7 @@
 #include "../include/Piece.h"
 #include "../include/Explosion.h"
 #include "../include/Level.h"
+#include "../include/Util.h"
 
 #include "../include/Editor/Editor.h"
 #include <ncurses.h>
@@ -40,10 +41,10 @@
 #include <sys/types.h> // required for stat.h
 #include <sys/stat.h>
 
-#include "../include/Global.h"
+//#include "../include/Global.h"
 int main()
 {	
-    //create or chech if directory exist
+/*    //create or chech if directory exist
     bool isDirExists=false;
     int nError = 0;
     mode_t nMode = 0733; // UNIX style permissions
@@ -72,6 +73,12 @@ int main()
     }
 
     ////////////////////////////////////
+*/    
+    Util::createDir(PATH_TO_DIR_STR);
+    if(Util::isFirstRun){
+	for(int i=0;i<Util::levelDefault.size();i++)
+	    Util::createDefaultLevelFile(i);
+    }
     
     initscr();
     clear();
