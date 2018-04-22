@@ -65,11 +65,8 @@ private:
 public:
     
     static void zero(int ch); //< classical
-    static void one(int ch);
-    static void two(int ch);
-    static void three(int ch);
-    static void four(int ch);
-    static void levelTemplate(int ch);
+    static void random(int ch);
+    static void levelTemplate(int ch, const std::string fileName);
 
 };
 

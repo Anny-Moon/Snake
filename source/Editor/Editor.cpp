@@ -116,7 +116,7 @@ void Editor::start(int ch)
     
     mvprintw(1,box.left+30,"'b' - for changing boundry conditions");
     mvprintw(2,box.left+30,"'s' - to save");
-    mvprintw(3,box.left+30,"'p' - for instant play");
+    mvprintw(3,box.left+30,"'y' - for instant play");
     move(0, 0);
 	
     for(;;){
@@ -152,7 +152,7 @@ void Editor::start(int ch)
 	    fclose(fp);
 	}
 	
-	else if (ch == 'p'){
+	else if (ch == 'y'){
 	    levelName = PATH_TO_DIR_STR + "/level.dat";
 	    fp=fopen(levelName.c_str(),"w");
 	    fprintf(fp,"generated in Level Editor\n");
@@ -244,6 +244,6 @@ void Editor::start(int ch)
     if(flagPlay){
 	timeout(-1);
 //	ch = getch();
-	Level::levelTemplate(ch);
+	Level::levelTemplate(ch, "level.dat");
     }
 }

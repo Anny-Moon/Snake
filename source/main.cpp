@@ -142,19 +142,22 @@ int main()
 	// Starting Game loop
 	switch(ch){
 	    case '1':
-		Level::one(ch);
+		//Level::one(ch);
+		Level::levelTemplate(ch, "_level1.dat");
 		break;
 	    case '2':
-		Level::two(ch);
+		//Level::two(ch);
+		Level::levelTemplate(ch, "_level2.dat");
 		break;
 	    case '3':
-		Level::three(ch);
+		//Level::three(ch);
+		Level::levelTemplate(ch, "_level3.dat");
 		break;
 	    case 'r':
-		Level::four(ch);
+		Level::random(ch);
 		break;
 	    case 'l':
-		Level::levelTemplate(ch);
+		Level::levelTemplate(ch, "level.dat");
 		break;
 	    case 'e':
 		Editor::start(ch);
