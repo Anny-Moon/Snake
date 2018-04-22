@@ -140,3 +140,18 @@ void Obstacle::writeInFile(FILE* fp, const std::vector<Obstacle>& obstacle)
     }
     fprintf(fp, "END\n");
 }
+
+void Obstacle::writeInFile(FILE* fp, const Obstacle* obstacle, int numObst)
+{
+    if(fp==NULL){
+	endwin();
+	printf("Error: problem with writing to the file.\n");
+	exit(1);
+    }
+    
+    fprintf(fp, "OBSTACLES\n");
+    for(int k=0;k<numObst;k++){
+	fprintf(fp,"%i\t%i\t%i\t%i\n", obstacle[k].width,obstacle[k].height,obstacle[k].xStart,obstacle[k].yStart);
+    }
+    fprintf(fp, "END\n");
+}

@@ -236,6 +236,7 @@ void Level::zero(int ch)
 void Level::random(int ch)
 {
     int i;
+    FILE* fp;
     int numObst = 30;
     Obstacle* obstacle;
     obstacle = new Obstacle [numObst];
@@ -250,11 +251,12 @@ void Level::random(int ch)
 	obstacle[i].init(width,height,xStart,yStart);
     }
     Box box(35, 20 ,5,5);
-    levelName = PATH_TO_DIR_STR + "/_levelRandom.dat";
+    box.boundryConditions = 1;
+    std::string levelName = PATH_TO_DIR_STR + "/_levelRandom.dat";
     fp=fopen(levelName.c_str(),"w");
     fprintf(fp,"random generator\n");
     box.writeInFile(fp);
-    Obstacle::writeInFile(fp, obstacle);
+    Obstacle::writeInFile(fp, obstacle, numObst);
     fclose(fp);
     delete [] obstacle;
     
