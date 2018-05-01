@@ -23,6 +23,7 @@
 #define SNAKE_LEVEL
 
 #include "Gameplay.h"
+#include <string>
 
 #define _QUITE(ch) if(ch == 'q' || ch == 'Q') return;
 
